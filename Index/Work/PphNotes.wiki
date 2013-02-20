@@ -1,0 +1,5 @@
+= PHP Notes =
+
+* [http://stackoverflow.com/questions/1869091/convert-array-to-object-php  Convert array to object]
+* [http://stackoverflow.com/questions/455700/what-is-the-best-method-to-merge-two-php-objects Merging 2 objects]
+* [http://www.mail-archive.com/php-bugs@lists.php.net/msg160551.html Require_once php 5.3 symlink bug]

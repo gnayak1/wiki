@@ -1,0 +1,117 @@
+= Git / Rally Integration =
+
+== Git Connector for Rally ==
+
+Click Here for instructions 
+
+*Note*: You need to install cgit as the web interface for rally to work as rally has its code tailored to parse the cgit conventions 
+
+=== Installing and Configuring cgit ===
+Got to your home directory. git clone git://hjemli.net/pub/git/cgit cd cgit Then we need to initialize the git submodule. cgit is written in C and it uses many of the native git libraries to interact with your repositories, hence it needs the git source code to work. 
+{{{
+    git submodule init
+    git submodule update
+}}}
+Since we are using gitlab and gitolite We are going to make one tiny change to the cgit source code. because we are using git and gitolite we are going to adjust how cgit renders the clone URL’s so that they will be correct for our gitolite install. 
+
+Edit the file ui-summary.c and find the print_url function (currently it is the first function in the file) and find the following lines within it: 
+{{{
+if (suffix && *suffix)
+                base = fmt("%s/%s", base, suffix);
+        html("
+}}}
+
+And change them to 
+{{{
+       if (suffix && *suffix)
+                base = fmt("%s%s", base, suffix);
+        html("
+}}}
+
+Now we can install cgit 
+{{{
+sudo make
+sudo make install
+}}}
+Now to serve cgit through apache (make sure the apache2 package is installed) we are going to use the following vhost configuration. This config assumes that you installed cgit to the standard locations, if you didn’t adjust the DocumentRoot, Directory, Alias and ScriptAlias directives accordingly. Make sure to use whatever URL you want to serve the cgit page through on the ServerName line and make sure you have a DNS entry pointing that URL to your server. This config also uses Apache’s mod-rewrite to give you nice pretty URL’s, if you don’t have mod-rewrite enabled use the command a2enmod rewrite to enable it. 
+
+We are going to modify the gitlab virtuals /etc/apache/sites-available/gitlab 
+{{{
+<VirtualHost *:80>
+      ServerName git.creativechannel.com
+      # !!! Be sure to point DocumentRoot to 'public'!
+      DocumentRoot /home/gitlab/gitlab/public
+      <Directory /home/gitlab/gitlab/public>
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+         Options -MultiViews
+
+         Options +ExecCGI
+      </Directory>
+
+    Alias /cgit.png /var/www/htdocs/cgit/cgit.png
+    Alias /cgit.css /var/www/htdocs/cgit/cgit.css
+    ScriptAlias /cgit "/var/www/htdocs/cgit/cgit.cgi/"
+    RewriteRule ^/cgit$ [R]
+    RewriteRule ^/cgit/(.*)$ /cgit.cgi/$1 [PT]
+
+    ErrorLog /var/log/apache2/cgit-error.log
+
+   </VirtualHost>
+}}}
+
+Now if you go to the URL that you set up in DNS and on the ServerName line, you should see cgit, but it is reporting that there are no repositories found! Lets adjust the cgit configuration to tell it where our repos are stored. Edit the file /etc/cgitrc (which probably doesn’t exist yet) and give it the following contents: 
+{{{
+remove-suffix=1
+cache-size=0
+clone-prefix=http://git.yourdomain.com/ git@git.yourdomain.com:
+source-filter=/usr/lib/cgit/filters/syntax-highlighting.sh
+readme=README
+root-title=My CGIT
+root-desc=My personal git repo
+project-list=/srv/repositories/projects.list
+scan-path=/srv/repositories/repositories
+enable-index-links=1
+}}}
+give the file git permissions only `sudo chown git:git /etc/cgitrc` 
+
+You could probably remove the clone-prefix since we wont be cloning from this interface. 
+
+restart apache `sudo service apache2 restart` 
+
+go to domain/cgit and you should see the cgit interface 
+
+now for us to be able to incorporate gitolite and cgit we need to make some permission changes. Web service request permissions are allways under the "Other" category . We dont want to necessarily give others permissions but want to give only the webservice call To view what user is accessing from the webservice type ps axwuf | grep apache 
+
+add user www-data to the "git" group 
+
+`sudo adduser www-data git`
+
+this will allow the webservice user to be part of tha "group" permissions for any file/folder that is under the git user. 
+
+We do this because we dont want to interupt the default gitlab behavior for creating projects from the web interface. 
+
+http://www.cryptkcoding.com/2011/09/setting-up-a-git-server-with-xinetd-gitolite-and-cgit-the-right-way/ 
+
+=== Installing cgit to work with gitlab ===
+
+==== Troubleshooting ====
+If after installation you get an error similar to 
+{{{
+    'C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in
+    `require': cannot load such file -- stuff (LoadError)
+    from
+    C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in
+    `require'
+    from eximporter.rb:26:in `<main>'
+}}}
+Run the following command `sudo gem install rally_api` 
+===== 5. Log file write check FAILED -- Unable to find/read config.xml file =====
+`sudo chmod 666 config.xml `
+
+===== 4. Wrapper script world executability check WARNING -- wrapper script Rallywrapper.sh not world executable =====
+`sudo chmod 665 RallyWrapper.sh` 
+
+
+

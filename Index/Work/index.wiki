@@ -1,0 +1,28 @@
+= Knowledge Base =
+
+== PHP ==
+* [[PphNotes|Random PHP Notes]]
+
+
+== Zend Framework ==
+
+* [http://goo.gl/YAiUm Creating ZF1 application]
+* [http://goo.gl/7bYac Creating Zf1 application example 2]
+* [http://goo.gl/nN4vO !ZendFramework and Authentication]
+* [http://bit.ly/V3Sx1s Custom Zend_Auth_Adapter and Zend_Auth_Storage classes]
+
+== Misc ==
+* [https://wiki.archlinux.org/index.php/Color_Bash_Prompt Bash Color Prompt]
+
+== Links ==
+* http://www.edmondscommerce.co.uk/zend-framework/zend-framework-rest-http-basic-authentication/ 
+* http://jackstips.com/?p=73 
+* http://akrabat.com/zend-auth-tutorial/ 
+* http://builtwithbootstrap.com/ 
+* https://dev.twitter.com/blog/bootstrap-twitter 
+* http://bootstraphero.com/the-big-badass-list-of-twitter-bootstrap-resources 
+* http://bootsnipp.com/search 
+* http://bootsnipp.com/resources#2 
+* http://www.initializr.com/ 
+* http://coenraets.org/blog/2012/02/sample-app-with-backbone-js-and-twitter-bootstrap/ 
+* crontab: http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/ 

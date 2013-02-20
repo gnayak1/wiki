@@ -1,0 +1,170 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css" />
+<title>GitRallyInstallation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<h1 id="toc_1">Git / Rally Integration</h1>
+
+<h2 id="toc_1.1">Git Connector for Rally</h2>
+
+<p>
+Click Here for instructions 
+</p>
+
+<p>
+<strong>Note</strong>: You need to install cgit as the web interface for rally to work as rally has its code tailored to parse the cgit conventions 
+</p>
+
+<h3 id="toc_1.1.1">Installing and Configuring cgit</h3>
+<p>
+Got to your home directory. git clone git://hjemli.net/pub/git/cgit cd cgit Then we need to initialize the git submodule. cgit is written in C and it uses many of the native git libraries to interact with your repositories, hence it needs the git source code to work. 
+</p>
+<pre>
+    git submodule init
+    git submodule update
+</pre>
+<p>
+Since we are using gitlab and gitolite We are going to make one tiny change to the cgit source code. because we are using git and gitolite we are going to adjust how cgit renders the clone URL’s so that they will be correct for our gitolite install. 
+</p>
+
+<p>
+Edit the file ui-summary.c and find the print_url function (currently it is the first function in the file) and find the following lines within it: 
+</p>
+<pre>
+if (suffix &amp;&amp; *suffix)
+                base = fmt("%s/%s", base, suffix);
+        html("
+</pre>
+
+<p>
+And change them to 
+</p>
+<pre>
+       if (suffix &amp;&amp; *suffix)
+                base = fmt("%s%s", base, suffix);
+        html("
+</pre>
+
+<p>
+Now we can install cgit 
+</p>
+<pre>
+sudo make
+sudo make install
+</pre>
+<p>
+Now to serve cgit through apache (make sure the apache2 package is installed) we are going to use the following vhost configuration. This config assumes that you installed cgit to the standard locations, if you didn’t adjust the <a href="DocumentRoot.html">DocumentRoot</a>, Directory, Alias and <a href="ScriptAlias.html">ScriptAlias</a> directives accordingly. Make sure to use whatever URL you want to serve the cgit page through on the <a href="ServerName.html">ServerName</a> line and make sure you have a DNS entry pointing that URL to your server. This config also uses Apache’s mod-rewrite to give you nice pretty URL’s, if you don’t have mod-rewrite enabled use the command a2enmod rewrite to enable it. 
+</p>
+
+<p>
+We are going to modify the gitlab virtuals /etc/apache/sites-available/gitlab 
+</p>
+<pre>
+&lt;VirtualHost *:80&gt;
+      ServerName git.creativechannel.com
+      # !!! Be sure to point DocumentRoot to 'public'!
+      DocumentRoot /home/gitlab/gitlab/public
+      &lt;Directory /home/gitlab/gitlab/public&gt;
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+         Options -MultiViews
+
+         Options +ExecCGI
+      &lt;/Directory&gt;
+
+    Alias /cgit.png /var/www/htdocs/cgit/cgit.png
+    Alias /cgit.css /var/www/htdocs/cgit/cgit.css
+    ScriptAlias /cgit "/var/www/htdocs/cgit/cgit.cgi/"
+    RewriteRule ^/cgit$ [R]
+    RewriteRule ^/cgit/(.*)$ /cgit.cgi/$1 [PT]
+
+    ErrorLog /var/log/apache2/cgit-error.log
+
+   &lt;/VirtualHost&gt;
+</pre>
+
+<p>
+Now if you go to the URL that you set up in DNS and on the <a href="ServerName.html">ServerName</a> line, you should see cgit, but it is reporting that there are no repositories found! Lets adjust the cgit configuration to tell it where our repos are stored. Edit the file /etc/cgitrc (which probably doesn’t exist yet) and give it the following contents: 
+</p>
+<pre>
+remove-suffix=1
+cache-size=0
+clone-prefix=http://git.yourdomain.com/ git@git.yourdomain.com:
+source-filter=/usr/lib/cgit/filters/syntax-highlighting.sh
+readme=README
+root-title=My CGIT
+root-desc=My personal git repo
+project-list=/srv/repositories/projects.list
+scan-path=/srv/repositories/repositories
+enable-index-links=1
+</pre>
+<p>
+give the file git permissions only <code>sudo chown git:git /etc/cgitrc</code> 
+</p>
+
+<p>
+You could probably remove the clone-prefix since we wont be cloning from this interface. 
+</p>
+
+<p>
+restart apache <code>sudo service apache2 restart</code> 
+</p>
+
+<p>
+go to domain/cgit and you should see the cgit interface 
+</p>
+
+<p>
+now for us to be able to incorporate gitolite and cgit we need to make some permission changes. Web service request permissions are allways under the "Other" category . We dont want to necessarily give others permissions but want to give only the webservice call To view what user is accessing from the webservice type ps axwuf | grep apache 
+</p>
+
+<p>
+add user www-data to the "git" group 
+</p>
+
+<p>
+<code>sudo adduser www-data git</code>
+</p>
+
+<p>
+this will allow the webservice user to be part of tha "group" permissions for any file/folder that is under the git user. 
+</p>
+
+<p>
+We do this because we dont want to interupt the default gitlab behavior for creating projects from the web interface. 
+</p>
+
+<p>
+<a href="http://www.cryptkcoding.com/2011/09/setting-up-a-git-server-with-xinetd-gitolite-and-cgit-the-right-way/">http://www.cryptkcoding.com/2011/09/setting-up-a-git-server-with-xinetd-gitolite-and-cgit-the-right-way/</a> 
+</p>
+
+<h3 id="toc_1.1.2">Installing cgit to work with gitlab</h3>
+
+<h4 id="toc_1.1.2.1">Troubleshooting</h4>
+<p>
+If after installation you get an error similar to 
+</p>
+<pre>
+    'C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in
+    `require': cannot load such file -- stuff (LoadError)
+    from
+    C:/Ruby193/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in
+    `require'
+    from eximporter.rb:26:in `&lt;main&gt;'
+</pre>
+<p>
+Run the following command <code>sudo gem install rally_api</code> 
+<h5 id="toc_1.1.2.1.1">5. Log file write check FAILED -- Unable to find/read config.xml file</h5>
+<code>sudo chmod 666 config.xml </code>
+</p>
+
+<h5 id="toc_1.1.2.1.2">4. Wrapper script world executability check WARNING -- wrapper script Rallywrapper.sh not world executable</h5>
+<p>
+<code>sudo chmod 665 RallyWrapper.sh</code> 
+</p>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+= Global Index =
+
+* [http://vimwiki.googlecode.com/hg-history/v1.2/src/doc/vimwiki.txt vimwiki commands]
+* [https://code.google.com/p/vimwiki/source/browse/src/doc/vimwiki.txt vimwikicommands 2]
+
+
