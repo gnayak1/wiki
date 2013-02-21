@@ -1,0 +1,29 @@
+= Scrum Meeting = 
+* Sam go through backlog and size them up for work hours
+* build and dpeloy process User stories for (Dev/Staging/Prod)
+* Production ldap move it out of ubuntu to (389 dir)
+* Stephen
+    - Test plans for each environment
+    - Nagios monitoring
+    - Acceptance criteria for each environment
+* Scrum Master will be Shah
+    - work on backlog refine requirements
+    - size the amount of work with sam
+    - planning meeting with sam
+    - scrum meeting and daily stand up done by shah
+
+== Meeting Timelines ==
+* Weekly
+    - planning meeting mid sprint with Sman to discuss progress
+* Bi-weekly meeting
+    - Everybody attends 
+    - Sam runs the meeting
+    - Devs demo stuff
+* Daily Standup
+    - Devs
+    - Shah runs it
+    - discuss status, difficulties, progress, need reqs?
+
+== Misc Notes ==
+
+Sam to get buying power to get us a gmail domain for our google apps.

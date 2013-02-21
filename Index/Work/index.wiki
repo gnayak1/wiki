@@ -1,5 +1,11 @@
 = Knowledge Base =
 
+== Environment ==
+* [[Credentials]]
+
+== Git ==
+* [[GitRallyInstallation|Git Plugin to incorporate with Rally]]
+
 == PHP ==
 * [[PphNotes|Random PHP Notes]]
 
@@ -13,6 +19,13 @@
 
 == Misc ==
 * [https://wiki.archlinux.org/index.php/Color_Bash_Prompt Bash Color Prompt]
+
+== Distros ==
+[http://www.howtoforge.com/perfect-server-centos-6.0-x86_64-ispconfig-2-p3
+Centos]
+
+== LDAP ==
+[http://mwiki.yyovkov.net/index.php/Install_LDAP_port_389_on_CentOS Install LDAP Port 389 on centos]
 
 == Links ==
 * http://www.edmondscommerce.co.uk/zend-framework/zend-framework-rest-http-basic-authentication/ 
