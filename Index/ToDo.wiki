@@ -1,10 +1,11 @@
 = Task List  =
-* [X] Set up meeting with jason, Danny, Sam (Thursday) to nail down the backend
   architecture. Approach frameworks
 * [] sam will define the MVP (min viable produc) by end of this week 2/22/2013
 * [ ] Work on environments (389 Dir) for ldap, 
 * [ ] jenkins, github, rally integration
-* [ ] deploying to amazon get keys and creds from jason
+* [ ] Setup API and Mysql servers on AWS instance as well
 * [ ] Code and environment Monitoring (Nagios)
 * [ ] Core Code needs Framework
+* [X] Set up meeting with jason, Danny, Sam (Thursday) to nail down the backend
+* [X] deploying to amazon get keys and creds from jason
 

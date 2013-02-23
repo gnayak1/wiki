@@ -1,0 +1,29 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css" />
+<title>CentosErrors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<h1 id="toc_1">Centos Errors</h1>
+
+<h2 id="toc_1.1">issues with python on centos 6.3 when making yum update</h2>
+<ul>
+<li>
+steps
+</li>
+</ul>
+<p>
+<code>rpm -qa |grep epel</code>
+<code>yum remove epel-release-5-4.noarch</code>
+<code>sudo wget "ftp://ftp.icm.edu.pl/vol/rzm2/linux-fedora/linux/epel/beta/6/x86_64/epel-release-6-5.noarch.rpm"</code>
+<code>sudo yum install epel-release-6-5.noarch.rpm</code>
+<code>sudo yum update</code>
+</p>
+
+<p>
+<em>source</em>:<a href="http://serverfault.com/questions/322911/centos-6-yum-update-packages-skipped-because-of-dependency-problems">http://serverfault.com/questions/322911/centos-6-yum-update-packages-skipped-because-of-dependency-problems</a>
+</p>
+
+</body>
+</html>

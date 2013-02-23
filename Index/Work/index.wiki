@@ -21,11 +21,23 @@
 * [https://wiki.archlinux.org/index.php/Color_Bash_Prompt Bash Color Prompt]
 
 == Distros ==
-[http://www.howtoforge.com/perfect-server-centos-6.0-x86_64-ispconfig-2-p3
-Centos]
+* [http://www.howtoforge.com/perfect-server-centos-6.0-x86_64-ispconfig-2-p3 Centos]
+
+=== Troubleshooting ===
+* [[CentosErrors|Centos Errors when doing yum update]
+
+== Aws / EC2 ==
+* [[Ec2Access|Allowing server access to users]]
+* [http://www.the-tech-tutorial.com/?p=1408 Add Memory / Swap to any EC2 Instance]
+{{{
+sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+sudo /sbin/mkswap /var/swap.1
+sudo /sbin/swapon /var/swap.1
+}}}
+
 
 == LDAP ==
-[http://mwiki.yyovkov.net/index.php/Install_LDAP_port_389_on_CentOS Install LDAP Port 389 on centos]
+* [http://mwiki.yyovkov.net/index.php/Install_LDAP_port_389_on_CentOS Install LDAP Port 389 on centos]
 
 == Links ==
 * http://www.edmondscommerce.co.uk/zend-framework/zend-framework-rest-http-basic-authentication/ 

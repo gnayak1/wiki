@@ -1,0 +1,11 @@
+= Centos Errors  =
+
+== issues with python on centos 6.3 when making yum update ==
+* steps
+`rpm -qa |grep epel`
+`yum remove epel-release-5-4.noarch`
+`sudo wget "ftp://ftp.icm.edu.pl/vol/rzm2/linux-fedora/linux/epel/beta/6/x86_64/epel-release-6-5.noarch.rpm"`
+`sudo yum install epel-release-6-5.noarch.rpm`
+`sudo yum update`
+
+_source_:http://serverfault.com/questions/322911/centos-6-yum-update-packages-skipped-because-of-dependency-problems

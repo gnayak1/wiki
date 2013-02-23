@@ -1,0 +1,13 @@
+= Allowing ec2 server access to users =
+*Important* NEVER give out the .pem key to a user. only sysadmins should have
+ access to them
+
+ * Ask user to create a ssh-key
+ `ssh-keygen -t rsa -C "your_email@example.com"`
+    - enter through all the defaults
+* The ssh key should be in /home/{username}/.ssh/id_rsa.pub
+* User should send their id_rsa.pub key to the sysadmin
+* sysadmin will then add their key to the authorized_keys files on the server
+  located under ` ~/.ssh/authorized_keys`
+
+ 

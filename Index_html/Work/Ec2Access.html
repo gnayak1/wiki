@@ -1,0 +1,37 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css" />
+<title>Ec2Access</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<h1 id="toc_1">Allowing ec2 server access to users</h1>
+<p>
+<strong>Important</strong> NEVER give out the .pem key to a user. only sysadmins should have
+ access to them
+</p>
+
+<ul>
+<li>
+Ask user to create a ssh-key
+ <code>ssh-keygen -t rsa -C "your_email@example.com"</code>
+</li>
+<ul>
+<li>
+enter through all the defaults
+</li>
+</ul>
+</ul>
+<li>
+The ssh key should be in /home/{username}/.ssh/id_rsa.pub
+</li>
+<li>
+User should send their id_rsa.pub key to the sysadmin
+</li>
+<li>
+sysadmin will then add their key to the authorized_keys files on the server
+  located under <code> ~/.ssh/authorized_keys</code>
+</li>
+
+</body>
+</html>
