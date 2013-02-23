@@ -28,6 +28,8 @@
 
 == Aws / EC2 ==
 * [[Ec2Access|Allowing server access to users]]
+*
+[http://itkbcentral.blogspot.com/2011/08/how-to-change-aws-ec2-security-group-of.html Change AWS security group]
 * [http://www.the-tech-tutorial.com/?p=1408 Add Memory / Swap to any EC2 Instance]
 {{{
 sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
