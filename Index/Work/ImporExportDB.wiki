@@ -1,0 +1,6 @@
+= Importing and Exporting DBs =
+== Export ==
+`mysqldump -u username -p databasename > dump.sql`
+
+== Import ==
+`mysql -u username -p  targetdatabasename < dump.sql`

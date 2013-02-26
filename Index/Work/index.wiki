@@ -11,6 +11,9 @@
 == PHP ==
 * [[PphNotes|Random PHP Notes]]
 
+== !MySQL ==
+* [[ImporExportDB|Import or export DB]]
+* [http://www.cyberciti.biz/tips/recover-mysql-root-password.html | Recover !MySQL root Password]
 
 == Zend Framework ==
 
