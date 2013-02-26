@@ -1,11 +1,34 @@
 = Task List  =
   architecture. Approach frameworks
 * [] sam will define the MVP (min viable produc) by end of this week 2/22/2013
-* [ ] Work on environments (389 Dir) for ldap, 
+  (it is in rally)
+* [] Set up dev, staging, production ec2 servers for all our projects
+    - [] dev mysql
+    - [ ] staging mysql
+    - [ ] production mysql
+    - [ ] dev api
+    - [ ] staging api
+    - [ ] production api
+    - [ ] dev ldap
+        *  [] Work on environments (389 Dir) for ldap
+            -  [X] Shahin set up the aws settings and permissions and server environment.
+            Install centos and 389 dir
+            - [ ] Danny configuring 389
+            - [ ] Take snapshot of the ami
+            - [ ] Create read only user for Nagios
+
+    - [ ] staging ldap
+    - [ ] production ldap
+    - [ ] staging profile
+    - [ ] production profile
 * [ ] jenkins, github, rally integration
-* [ ] Setup API and Mysql servers on AWS instance as well
 * [ ] Code and environment Monitoring (Nagios)
 * [ ] Core Code needs Framework
 * [X] Set up meeting with jason, Danny, Sam (Thursday) to nail down the backend
 * [X] deploying to amazon get keys and creds from jason
+* [ ] Set up AWS Cloudfront for CDN
 
+== Quad IV ==
+
+* [] Increase disk space on VM
+ 

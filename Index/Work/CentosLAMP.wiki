@@ -1,0 +1,54 @@
+= Install Apache, !MySQL 5.5.30 & PHP 5.4.11 on RHEL/!CentOS 6.3 =
+
+== Step 1: Installing Remi Repository ==
+{{{
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm 
+}}}
+
+== Step 2: Installing Apache, !MySQL 5.5.30 & PHP 5.4.11 ==
+{{{
+yum --enablerepo=remi,remi-test install httpd mysql mysql-server php php-common
+}}}
+
+== Step 3: Installing PHP 5.4.11 Modules ==
+{{{
+yum --enablerepo=remi,remi-test install php-mysql php-pgsql php-pecl-mongo php-sqlite php-pecl-memcache php-pecl-memcached php-gd php-mbstring php-mcrypt php-xml php-pecl-apc php-cli php-pear php-pdo
+}}}
+
+== Step 4: Starting/Stopping Apache & !MySQL 5.5.30 ==
+{{{
+## Enable Apache and MySQL on Run-Levels ##
+chkconfig --levels 235 httpd on
+chkconfig --levels 235 mysqld on
+
+# start apache
+/etc/init.d/httpd start
+
+# start mysql
+/etc/init.d/mysqld start
+}}}
+
+== Step 5: Verifying Apache, !MySQL 5.5.30 & PHP 5.4.11 ==
+Create a page called phpinfo.php under your Apache root directory and add the
+following lines to it. For example (/var/www/html/phpinfo.php).
+{{{
+<?php
+
+     phpinfo ();
+     ?>
+}}}
+
+== Set up hostname ==
+{{{
+sudo vi /etc/sysconfig/networks
+}}}
+update hostname
+
+{{{
+sudo vi /etc/hosts
+}}}
+instantiate the new hostname to localhost and its ip
+
+
+_sources_: http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/

@@ -1,7 +1,9 @@
 = Knowledge Base =
 
+[[diary/diary]]
 == Environment ==
 * [[Credentials]]
+* [http://www.howtogeek.com/50631/how-to-change-your-linux-hostname-without-rebooting/ Change Hostname]
 
 == Git ==
 * [[GitRallyInstallation|Git Plugin to incorporate with Rally]]
@@ -14,7 +16,7 @@
 
 * [http://goo.gl/YAiUm Creating ZF1 application]
 * [http://goo.gl/7bYac Creating Zf1 application example 2]
-* [http://goo.gl/nN4vO !ZendFramework and Authentication]
+* [http://goo.gl/nN4vO ZendFramework and Authentication]
 * [http://bit.ly/V3Sx1s Custom Zend_Auth_Adapter and Zend_Auth_Storage classes]
 
 == Misc ==
@@ -22,14 +24,16 @@
 
 == Distros ==
 * [http://www.howtoforge.com/perfect-server-centos-6.0-x86_64-ispconfig-2-p3 Centos]
+    - [[MysqlCentos6|Setting up mysql on centos 6.3]]
+    - [[CentosLAMP|Install Apache, MySQL 5.5.30 & PHP 5.4.11 on RHEL/CentOS 6.3/5.6 & Fedora 18-12]]
+    - [http://www.howtoforge.com/creating-your-own-webserver-with-bind-and-apache-centos5-p2 Add Domain in Centos]
 
 === Troubleshooting ===
-* [[CentosErrors|Centos Errors when doing yum update]
+* [[CentosErrors|Centos Errors when doing yum update]]
 
 == Aws / EC2 ==
 * [[Ec2Access|Allowing server access to users]]
-*
-[http://itkbcentral.blogspot.com/2011/08/how-to-change-aws-ec2-security-group-of.html Change AWS security group]
+* [http://itkbcentral.blogspot.com/2011/08/how-to-change-aws-ec2-security-group-of.html Change AWS security group]
 * [http://www.the-tech-tutorial.com/?p=1408 Add Memory / Swap to any EC2 Instance]
 {{{
 sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
@@ -42,6 +46,7 @@ sudo /sbin/swapon /var/swap.1
 * [http://mwiki.yyovkov.net/index.php/Install_LDAP_port_389_on_CentOS Install LDAP Port 389 on centos]
 
 == Links ==
+* [http://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/ Random Password Generator]
 * http://www.edmondscommerce.co.uk/zend-framework/zend-framework-rest-http-basic-authentication/ 
 * http://jackstips.com/?p=73 
 * http://akrabat.com/zend-auth-tutorial/ 

@@ -1,0 +1,77 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>CentosLAMP</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Install Apache, MySQL 5.5.30 &amp; PHP 5.4.11 on RHEL/CentOS 6.3</h1>
+
+<h2 id="toc_1.1">Step 1: Installing Remi Repository</h2>
+<pre>
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm 
+</pre>
+
+<h2 id="toc_1.2">Step 2: Installing Apache, MySQL 5.5.30 &amp; PHP 5.4.11</h2>
+<pre>
+yum --enablerepo=remi,remi-test install httpd mysql mysql-server php php-common
+</pre>
+
+<h2 id="toc_1.3">Step 3: Installing PHP 5.4.11 Modules</h2>
+<pre>
+yum --enablerepo=remi,remi-test install php-mysql php-pgsql php-pecl-mongo php-sqlite php-pecl-memcache php-pecl-memcached php-gd php-mbstring php-mcrypt php-xml php-pecl-apc php-cli php-pear php-pdo
+</pre>
+
+<h2 id="toc_1.4">Step 4: Starting/Stopping Apache &amp; MySQL 5.5.30</h2>
+<pre>
+## Enable Apache and MySQL on Run-Levels ##
+chkconfig --levels 235 httpd on
+chkconfig --levels 235 mysqld on
+
+# start apache
+/etc/init.d/httpd start
+
+# start mysql
+/etc/init.d/mysqld start
+</pre>
+
+<h2 id="toc_1.5">Step 5: Verifying Apache, MySQL 5.5.30 &amp; PHP 5.4.11</h2>
+<p>
+Create a page called phpinfo.php under your Apache root directory and add the
+following lines to it. For example (/var/www/html/phpinfo.php).
+</p>
+<pre>
+&lt;?php
+
+     phpinfo ();
+     ?&gt;
+</pre>
+
+<h2 id="toc_1.6">Set up hostname</h2>
+<pre>
+sudo vi /etc/sysconfig/networks
+</pre>
+<p>
+update hostname
+</p>
+
+<pre>
+sudo vi /etc/hosts
+</pre>
+<p>
+instantiate the new hostname to localhost and its ip
+</p>
+
+
+<p>
+<em>sources</em>: <a href="http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/">http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/</a>
+</p>
+
+</div>
+</body>
+</html>

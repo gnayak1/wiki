@@ -1,0 +1,36 @@
+= Daily Standup =
+== Shahin ==
+* have configured most of the servers (web, api, mysql, ldap)
+* zend framework installed on web server
+* configured apache on web ap and php to serve zf
+* finished github and rally intergration for all projects except cyber scholar
+* created mysql user for direct remote connection to the mysql server
+* *Blocker* : need to elastic load balancers done
+* *Todo* : 
+    - [] make sure code can be pushed to these servers
+    - [ ] create a Test repo on github for regression tests to be pushed on there
+    - [ ] Create admin cred and CRUD cred for mysql 
+    - [ ] Make sure DB table in on mysql server on aws
+
+
+== Danny ==
+* Unit Tests for ldap need to be fleshed out more
+* Update Tasks in Rally
+* 65% done on getting permissions from opneldap to 389dir complete
+* Moving the the code documentation on github
+* Working on sprint tasks
+* *Todo* Write the wrapper on mysql connection and ldap
+
+== Garry ==
+* Have the test api calls working
+* Encryption part of signature is done
+* Working on the crud for the user API
+
+== Stephen ==
+* Putting tasks in rally 
+* (Talk to shah) view output in jenkins
+* (Set up meeting with danny) to view phpunit
+
+== Jason (Absent) ==
+* He has the profile db and still needs to put it on aws.
+

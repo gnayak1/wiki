@@ -1,0 +1,136 @@
+= Installing Mysql on Centos 6.3 =
+
+== Step 1: Installing Remi Repository ==
+## Install Remi & Epel Repository on RHEL/Centos 6.3-6.0 - 64 Bit ##
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm 
+
+== Installing Mysql 5.530 ==
+## Installing on RHEL/Centos 5-6 ##
+yum --enablerepo=remi,remi-test install httpd mysql mysql-server
+
+== Starting / Stoping & MySQL 5.5.30 ==
+
+## Enable Apache and Mysql on Run-Levels ##
+chkconfig --levels 235 httpd on
+chkconfig --levels 235 mysqld on
+
+
+## Apache Commands ## 
+/etc/init.d/httpd start
+/etc/init.d/httpd stop
+/etc/init.d/httpd status
+
+## Mysql Commands ## 
+/etc/init.d/mysqld start
+/etc/init.d/mysqld stop
+/etc/init.d/mysqld status
+
+== Mysql Secure Installation ==
+
+`/usr/bin/mysql_secure_installation`
+
+{{{
+    NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+ 
+ 
+In order to log into MySQL to secure it, we\'ll need the current
+password for the root user.  If you\'ve just installed MySQL, and
+you haven\'t set the root password yet, the password will be blank,
+so you should just press enter here.
+ 
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+ 
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+ 
+Set root password? [Y/n] Y
+New password: 
+Re-enter new password: 
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+ 
+ 
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+ 
+Remove anonymous users? [Y/n] Y
+ ... Success!
+ 
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+ 
+Disallow root login remotely? [Y/n] Y
+ ... Success!
+ 
+By default, MySQL comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+ 
+Remove test database and access to it? [Y/n] Y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+ 
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+ 
+Reload privilege tables now? [Y/n] Y
+ ... Success!
+ 
+Cleaning up...
+ 
+ 
+ 
+All done!  If you\'ve completed all of the above steps, your MySQL
+installation should now be secure.
+ 
+Thanks for using MySQL!
+
+}}}
+
+==  Connect to Mysql database (localhost) with password ==
+
+`mysql -u root -p`
+
+== Set up remote access ==
+
+{{{
+## CREATE DATABASE ##
+mysql> CREATE DATABASE dbname;
+ 
+## CREATE USER ##
+mysql> CREATE USER 'user'@'%' IDENTIFIED BY 'password123';
+ 
+## GRANT PERMISSIONS ##
+mysql> GRANT ALL privileges on *.* TO 'user'@'%' with grant option;
+ 
+##  FLUSH PRIVILEGES, Tell the server TO reload the GRANT TABLES  ##
+mysql> FLUSH PRIVILEGES;
+
+}}}
+you can replace % with ipaddress and *.* with user.dbname if desired
+% and * are wild cards
+
+== Allow IP addresses ==
+` vim /etc/my.cnf`
+under [mysqld]
+`bind-address = * `
+save
+restart mysql
+`/etc/init.d/mysqld restart`
+
+== Test Connection  ==
+`mysql -h hostname -u username -p password`
+
+_sources_: 
+* http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/
+* http://wiki.r1soft.com/display/CDP3/Allowing+Remote+Connections+to+MySQL+Instance
+

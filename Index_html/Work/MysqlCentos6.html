@@ -1,0 +1,178 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>MysqlCentos6</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Installing Mysql on Centos 6.3</h1>
+
+<h2 id="toc_1.1">Step 1: Installing Remi Repository</h2>
+<p>
+## Install Remi &amp; Epel Repository on RHEL/Centos 6.3-6.0 - 64 Bit ##
+rpm -Uvh <a href="http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm">http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</a>
+rpm -Uvh <a href="http://rpms.famillecollet.com/enterprise/remi-release-6.rpm">http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</a> 
+</p>
+
+<h2 id="toc_1.2">Installing Mysql 5.530</h2>
+<p>
+## Installing on RHEL/Centos 5-6 ##
+yum --enablerepo=remi,remi-test install httpd mysql mysql-server
+</p>
+
+<h2 id="toc_1.3">Starting / Stoping &amp; <a href="MySQL.html">MySQL</a> 5.5.30</h2>
+
+<p>
+## Enable Apache and Mysql on Run-Levels ##
+chkconfig --levels 235 httpd on
+chkconfig --levels 235 mysqld on
+</p>
+
+
+<p>
+## Apache Commands ## 
+/etc/init.d/httpd start
+/etc/init.d/httpd stop
+/etc/init.d/httpd status
+</p>
+
+<p>
+## Mysql Commands ## 
+/etc/init.d/mysqld start
+/etc/init.d/mysqld stop
+/etc/init.d/mysqld status
+</p>
+
+<h2 id="toc_1.4">Mysql Secure Installation</h2>
+
+<p>
+<code>/usr/bin/mysql_secure_installation</code>
+</p>
+
+<pre>
+    NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+ 
+ 
+In order to log into MySQL to secure it, we\'ll need the current
+password for the root user.  If you\'ve just installed MySQL, and
+you haven\'t set the root password yet, the password will be blank,
+so you should just press enter here.
+ 
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+ 
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+ 
+Set root password? [Y/n] Y
+New password: 
+Re-enter new password: 
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+ 
+ 
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+ 
+Remove anonymous users? [Y/n] Y
+ ... Success!
+ 
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+ 
+Disallow root login remotely? [Y/n] Y
+ ... Success!
+ 
+By default, MySQL comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+ 
+Remove test database and access to it? [Y/n] Y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+ 
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+ 
+Reload privilege tables now? [Y/n] Y
+ ... Success!
+ 
+Cleaning up...
+ 
+ 
+ 
+All done!  If you\'ve completed all of the above steps, your MySQL
+installation should now be secure.
+ 
+Thanks for using MySQL!
+
+</pre>
+
+<h2 id="toc_1.5">Connect to Mysql database (localhost) with password</h2>
+
+<p>
+<code>mysql -u root -p</code>
+</p>
+
+<h2 id="toc_1.6">Set up remote access</h2>
+
+<pre>
+## CREATE DATABASE ##
+mysql&gt; CREATE DATABASE dbname;
+ 
+## CREATE USER ##
+mysql&gt; CREATE USER 'user'@'%' IDENTIFIED BY 'password123';
+ 
+## GRANT PERMISSIONS ##
+mysql&gt; GRANT ALL privileges on *.* TO 'user'@'%' with grant option;
+ 
+##  FLUSH PRIVILEGES, Tell the server TO reload the GRANT TABLES  ##
+mysql&gt; FLUSH PRIVILEGES;
+
+</pre>
+<p>
+you can replace % with ipaddress and <strong>.</strong> with user.dbname if desired
+% and * are wild cards
+</p>
+
+<h2 id="toc_1.7">Allow IP addresses</h2>
+<p>
+<code> vim /etc/my.cnf</code>
+under [mysqld]
+<code>bind-address = * </code>
+save
+restart mysql
+<code>/etc/init.d/mysqld restart</code>
+</p>
+
+<h2 id="toc_1.8">Test Connection</h2>
+<p>
+<code>mysql -h hostname -u username -p password</code>
+</p>
+
+<p>
+<em>sources</em>: 
+</p>
+<ul>
+<li>
+<a href="http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/">http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/</a>
+</li>
+<li>
+<a href="http://wiki.r1soft.com/display/CDP3/Allowing+Remote+Connections+to+MySQL+Instance">http://wiki.r1soft.com/display/CDP3/Allowing+Remote+Connections+to+MySQL+Instance</a>
+</li>
+</ul>
+
+</div>
+</body>
+</html>
