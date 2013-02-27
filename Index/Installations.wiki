@@ -1,0 +1,2 @@
+* [http://www.debianadmin.com/check-disk-space-usage-on-ubuntu.html | Discus]
+* sudo apt-get htop 

@@ -1,0 +1,3 @@
+* [http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/|lighter desktop]
+* [http://modifyubuntu.com/#terminal | Ubuntu Terminal]
+* [[Installations]]

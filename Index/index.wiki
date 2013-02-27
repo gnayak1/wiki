@@ -3,4 +3,6 @@
 * [[Work/index|Work]]
 * [http://vimwiki.googlecode.com/hg-history/v1.2/src/doc/vimwiki.txt vimwiki commands]
 * [https://code.google.com/p/vimwiki/source/browse/src/doc/vimwiki.txt vimwikicommands 2]
+* [http://www.omgubuntu.co.uk/2012/04/how-to-change-unity-2d-launcher-icon-size-with-a-script Changing launcher icon size]
+* [[Ubunutu]]
 

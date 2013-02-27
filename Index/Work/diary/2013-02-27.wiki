@@ -1,0 +1,21 @@
+= Daily Standup =
+== Danny ==
+* ldap security in place
+* public and private logins and accessing information
+* need to modify tests for ldap
+* start working to tls
+* update integration tests and discuss with stephen
+
+== Stephen ==
+* Create test plan with rally
+* Create test cases
+* learn how to run unit tests and discuss with danny
+* Integrationt testing setup
+
+== Jason ==
+* No updates
+
+== Gary ==
+* Signature encryption is working
+* having difficulty matching up the nonce and is working on that
+
