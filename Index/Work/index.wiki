@@ -1,6 +1,6 @@
 = Knowledge Base =
+[[diary/diary| Daily Notes]]
 
-[[diary/diary]]
 == Environment ==
 * [[Credentials]]
 * [http://www.howtogeek.com/50631/how-to-change-your-linux-hostname-without-rebooting/ Change Hostname]

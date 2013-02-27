@@ -161,6 +161,57 @@ restart mysql
 <code>mysql -h hostname -u username -p password</code>
 </p>
 
+<h2 id="toc_1.9">To Update Users or further grants</h2>
+
+<p>
+To list users:
+</p>
+
+<p>
+<code>select useost from mysql.user;</code>
+</p>
+
+<p>
+To show privileges:
+</p>
+
+<p>
+<code>show grants for 'user'@'host';</code>
+</p>
+
+<p>
+To change privileges, first revoke. Such as:
+</p>
+
+<p>
+<code>revoke all privileges on *.* from 'user'@'host';</code>
+</p>
+
+<p>
+Then grant the appropriate privileges as desired:
+</p>
+
+<p>
+<code>grant SELECT,INSERT,UPDATE,DELETE ON </code>db<code>.* TO 'user'@'host';</code>
+</p>
+
+<p>
+Finally, flush:
+</p>
+
+<p>
+<code>flush privileges;</code>
+</p>
+
+<p>
+The MySQL documentation is excellent:
+</p>
+
+<p>
+<a href="http://dev.mysql.com/doc/refman/5.0/en/user-account-management.html">http://dev.mysql.com/doc/refman/5.0/en/user-account-management.html</a>
+</p>
+
+
 <p>
 <em>sources</em>: 
 </p>
