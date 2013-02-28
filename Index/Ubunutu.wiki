@@ -1,3 +1,4 @@
 * [http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/|lighter desktop]
 * [http://modifyubuntu.com/#terminal | Ubuntu Terminal]
 * [[Installations]]
+* [http://www.sitepoint.com/ubuntu-12-04-lts-precise-pangolin-networking-tips-and-tricks/ Networking tips and tricks]
