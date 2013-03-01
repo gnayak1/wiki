@@ -1,0 +1,62 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>GlobalEnvrionment</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Setting Up Global Environment Variables</h1>
+<p>
+The easiest way to set an environment variable in CentOS is to use export as in
+</p>
+<blockquote>
+<code>export JAVA_HOME=/usr/java/jdk.1.5.0_12</code>
+</blockquote>
+<blockquote>
+<code>export PATH=$PATH:$JAVA_HOME</code>
+</blockquote>
+
+<p>
+However, variables set in such a manner are transient i.e. they will disappear the moment you exit the shell. Obviously this is not helpful when setting environment variables that need to persist even when the system reboots.
+</p>
+
+<p>
+In such cases, you need to set the variables within the system wide profile. In CentOS (I’m using v5.2), the folder /etc/profile.d/ is the recommended place to add customizations to the system profile.
+</p>
+
+<p>
+For example, when installing the Sun JDK, you might need to set the JAVA_HOME and JRE_HOME environment variables. In this case:
+</p>
+<blockquote>
+Create a new file called java.sh
+</blockquote>
+<blockquote>
+<code>vim /etc/profile.d/java.sh</code>
+</blockquote>
+<blockquote>
+Within this file, initialize the necessary environment variables
+</blockquote>
+<pre>
+        export JRE_HOME=/usr/java/jdk1.5.0_12/jre
+        export PATH=$PATH:$JRE_HOME/bin
+
+        export JAVA_HOME=/usr/java/jdk1.5.0_12
+        export JAVA_PATH=$JAVA_HOME
+
+        export PATH=$PATH:$JAVA_HOME/bin
+</pre>
+<p>
+Now when you restart your machine, the environment variables within java.sh will be automatically initialized (checkout /etc/profile if you are curious how the files in /etc/profile.d/ are loaded) .
+</p>
+
+<p>
+PS: If you want to load the environment variables within java.sh without having to restart the machine, you can use the source command as in:
+</p>
+
+</div>
+</body>
+</html>

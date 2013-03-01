@@ -1,0 +1,207 @@
+
+= Install Sun/Oracle Java JDK/JRE 7u15 on Fedora 18/17/16/15/14/13/12, !CentOS 6.3/6.2/6.1/6/5.9, Red Hat (RHEL) 6.3/6.2/6.1/6/5.9=
+
+1. Download Sun/Oracle Java JDK/JRE 7u15 32-bit/64-bit RPM packages
+
+Download Sun/Oracle Java 7u15 from here http://www.oracle.com/technetwork/java/javase/downloads/index.html. Select rpm package (jdk-7u15-linux-i586.rpm, jdk-7u15-linux-x64.rpm, jre-7u15-linux-i586.rpm or jre-7u15-linux-x64.rpm).
+2. Change to root user.
+{{{
+sudo -i
+## OR ##
+su -
+}}}
+3. Install Java JDK or JRE package
+{{{
+## JDK 32-bit ##
+rpm -Uvh /path/to/binary/jdk-7u15-linux-i586.rpm
+ 
+## JDK 64-bit ##
+rpm -Uvh /path/to/binary/jdk-7u15-linux-x64.rpm
+ 
+## JRE 32-bit ##
+rpm -Uvh /path/to/binary/jre-7u15-linux-i586.rpm
+ 
+## JRE 64-bit ##
+rpm -Uvh /path/to/binary/jre-7u15-linux-x64.rpm
+}}}
+4a. Install Sun/Oracle JDK java, javaws, libjavaplugin.so (for Firefox/Mozilla) and javac with alternatives –install command
+Use Java JDK latest version (/usr/java/latest)
+{{{
+## java ##
+alternatives --install /usr/bin/java java /usr/java/latest/jre/bin/java 20000
+## javaws ##
+alternatives --install /usr/bin/javaws javaws /usr/java/latest/jre/bin/javaws 20000
+ 
+## Java Browser (Mozilla) Plugin 32-bit ##
+alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /usr/java/latest/jre/lib/i386/libnpjp2.so 20000
+ 
+## Java Browser (Mozilla) Plugin 64-bit ##
+alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/latest/jre/lib/amd64/libnpjp2.so 20000
+ 
+## Install javac only if you installed JDK (Java Development Kit) package ##
+alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 20000
+alternatives --install /usr/bin/jar jar /usr/java/latest/bin/jar 20000
+}}}
+Use Java JDK absolute version (/usr/java/jdk1.7.0_15)
+{{{
+## java ##
+alternatives --install /usr/bin/java java /usr/java/jdk1.7.0_15/jre/bin/java 20000
+## javaws ##
+alternatives --install /usr/bin/javaws javaws /usr/java/jdk1.7.0_15/jre/bin/javaws 20000
+ 
+## Java Browser (Mozilla) Plugin 32-bit ##
+alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /usr/java/jdk1.7.0_15/jre/lib/i386/libnpjp2.so 20000
+ 
+## Java Browser (Mozilla) Plugin 64-bit ##
+alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/jdk1.7.0_15/jre/lib/amd64/libnpjp2.so 20000
+ 
+## Install javac only if you installed JDK (Java Development Kit) package ##
+alternatives --install /usr/bin/javac javac /usr/java/jdk1.7.0_15/bin/javac 20000
+alternatives --install /usr/bin/jar jar /usr/java/jdk1.7.0_15/bin/jar 20000
+}}}
+4b. Install Sun/Oracle JRE java, javaws and libjavaplugin.so (for Firefox/Mozilla) with alternatives –install command
+Use Java JRE latest version (/usr/java/latest)
+{{{
+## java ##
+alternatives --install /usr/bin/java java /usr/java/latest/bin/java 20000
+ 
+## javaws ##
+alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 20000
+ 
+## Java Browser (Mozilla) Plugin 32-bit ##
+alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /usr/java/latest/lib/i386/libnpjp2.so 20000
+ 
+## Java Browser (Mozilla) Plugin 64-bit ##
+alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/latest/lib/amd64/libnpjp2.so 20000
+
+Use Java JRE absolute version (/usr/java/jre1.7.0_15)
+
+## java ##
+alternatives --install /usr/bin/java java /usr/java/jre1.7.0_15/bin/java 20000
+ 
+## javaws ##
+alternatives --install /usr/bin/javaws javaws /usr/java/jre1.7.0_15/bin/javaws 20000
+ 
+## Java Browser (Mozilla) Plugin 32-bit ##
+alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so libjavaplugin.so /usr/java/jre1.7.0_15/lib/i386/libnpjp2.so 20000
+ 
+## Java Browser (Mozilla) Plugin 64-bit ##
+alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/jre1.7.0_15/lib/amd64/libnpjp2.so 20000
+}}}
+5. Check current java, javac, javaws and libjavaplugin.so versions
+{{{
+java -version
+java version "1.7.0_15"
+Java(TM) SE Runtime Environment (build 1.7.0_15-b04)
+Java HotSpot(TM) 64-Bit Server VM (build 22.1-b02, mixed mode)
+ }}}
+{{{
+javaws
+Java(TM) Web Start 10.0.0.4-fcs
+[...]
+ }}}
+{{{
+javac -version
+javac 1.7.0_15
+}}}
+Note: Check libjavaplugin.so with restarting Mozilla Firefox and writing about:plugins on address bar.
+Java 7 Browser Plugin Fedora 18 Firefox 17
+Java 7 console output on Fedora 18:
+Java 7 on Fedora 18 Console Output
+
+6. Swap between OpenJDK and Sun/Oracle Java JDK/JRE 6 and 7 versions
+java
+
+{{{
+alternatives --config java
+There are 5 programs which provide 'java'.
+ 
+  Selection    Command
+-----------------------------------------------
+*  1           /usr/java/jdk1.6.0_24/jre/bin/java
+   2           /usr/lib/jvm/jre-1.5.0-gcj/bin/java
+ + 3           /usr/java/jdk1.6.0_26/jre/bin/java
+   4           /usr/lib/jvm/jre-1.6.0-openjdk/bin/java
+   5           /usr/java/jdk1.7.0_15/jre/bin/java
+ 
+Enter to keep the current selection[+], or type selection number: 5
+}}}
+Note: java with [+] is currently on use
+
+javaws
+{{{
+alternatives --config javaws
+ 
+There are 3 programs which provide 'javaws'.
+ 
+  Selection    Command
+-----------------------------------------------
+*  1           /usr/java/jdk1.6.0_24/jre/bin/javaws
+ + 2           /usr/java/jdk1.6.0_26/jre/bin/javaws
+   3           /usr/java/jdk1.7.0_15/jre/bin/javaws
+ 
+Enter to keep the current selection[+], or type selection number: 3
+}}}
+Note: java with [+] is currently on use
+libjavaplugin.so (32-bit)
+{{{
+alternatives --config libjavaplugin.so
+ 
+There are 3 programs which provide 'libjavaplugin.so'.
+ 
+  Selection    Command
+-----------------------------------------------
+*  1           /usr/java/jdk1.6.0_24/jre/lib/i386/libnpjp2.so
+ + 2           /usr/java/jdk1.6.0_26/jre/lib/i386/libnpjp2.so
+   3           /usr/java/jdk1.7.0_15/jre/lib/i386/libnpjp2.so
+ 
+Enter to keep the current selection[+], or type selection number: 3
+}}}
+libjavaplugin.so.x86_64 (64-bit)
+{{{
+alternatives --config libjavaplugin.so.x86_64
+ 
+There are 3 programs which provide 'libjavaplugin.so.x86_64'.
+ 
+  Selection    Command
+-----------------------------------------------
+*  1           /usr/java/jdk1.6.0_24/jre/lib/amd64/libnpjp2.so
+ + 2           /usr/java/jdk1.6.0_26/jre/lib/amd64/libnpjp2.so
+   3           /usr/java/jdk1.7.0_15/jre/lib/amd64/libnpjp2.so
+ 
+Enter to keep the current selection[+], or type selection number: 3
+}}}
+javac
+{{{
+alternatives --config javac
+ 
+There are 3 programs which provide 'javac'.
+ 
+  Selection    Command
+-----------------------------------------------
+*  1           /usr/java/jdk1.6.0_24/bin/javac
+ + 2           /usr/java/jdk1.6.0_26/bin/javac
+   3           /usr/java/jdk1.7.0_15/bin/javac
+ 
+Enter to keep the current selection[+], or type selection number: 3
+}}}
+Note: java with [+] is currently on use
+Post-Installation Setup
+
+Add JAVA_HOME environment variable to /etc/profile file or $HOME/.bash_profile file
+
+Java JDK and JRE latest version (/usr/java/latest)
+{{{
+## export JAVA_HOME JDK/JRE ##
+export JAVA_HOME="/usr/java/latest"
+}}}
+Java JDK and JRE absolute version (/usr/java/jdk1.7.0_15)
+{{{
+## export JAVA_HOME JDK ##
+export JAVA_HOME="/usr/java/jdk1.7.0_15"
+ 
+## export JAVA_HOME JRE ##
+export JAVA_HOME="/usr/java/jre1.7.0_15"
+}}}
+
+_sources_:http://www.if-not-true-then-false.com/2010/install-sun-oracle-java-jdk-jre-7-on-fedora-centos-red-hat-rhel/

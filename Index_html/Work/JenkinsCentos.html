@@ -1,0 +1,329 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>JenkinsCentos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Installing Jenkins CI On CentOS 6.x (Tomcat with AJP Proxy)</h1>
+
+<p>
+This is on a fresh minimal install of CentOS 6.3 (but should work for 6.x and also to my knowledge works for the latest versions of 5.x). Judging by how easy this is and how aligned CentOS is with normal RedHat (RHEL), it should work on any RHEL-based system 5.x or 6.x but don’t take my word for it.
+</p>
+
+<p>
+Don’t copy and paste this thing, it is a guideline, some of it won’t work if you copy and paste.
+</p>
+
+<p>
+First get CentOS updated all the way in a safe session (I like to use screen, make sure it is installed though):
+Shell
+</p>
+
+<pre>
+yum install screen;
+screen;
+yum upgrade;
+</pre>
+
+<p>
+Install the Jenkins RPM via YUM as described on their RedHat Repository page for Jenkins; at the time of this writing the commands are:
+</p>
+<pre>
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo;
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key;
+yum install jenkins;
+</pre>
+
+<p>
+Don’t forget, you’ll need java as well (at least a JRE, but I can only seem to find the JDK, which will be overkill but sufficient):
+</p>
+<pre>
+java -version
+yum install java-1.6.0-openjdk;
+java -version
+</pre>
+<p>
+Install httpd (Apache 2.2). It is bad practice to bind Tomcat (which Jenkins uses) to port 80. Tomcat is a service, not a web server. Apache will be used to proxy the requests to the Tomcat service and thus Jenkins through port 80 (the normal www port):
+</p>
+    
+<p>
+<code>yum install httpd;</code>
+</p>
+
+<p>
+At this point Apache, nor Jenkins should be running. Update iptables and open TCP port 80 (no need to open port 8080 which Tomcat uses, all proxy comms will happen via the loopback):
+</p>
+
+<p>
+<code>vi /etc/sysconfig/iptables;</code>
+</p>
+
+<p>
+And the iptables file is:
+</p>
+
+<pre>
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+# added the following line
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+</pre>
+<p>
+Close vi (:wq), and restart iptables:
+</p>
+    
+<p>
+<code>service iptables restart;</code>
+</p>
+
+<p>
+Now, configure Apache. Update the ServerName and any other necessary configurations. I’ll leave that up to you (the reader). What you DO need to know is the virtual host proxy configuration. I’ll be using AJP (Apache JServ Protocol). Some say it is slower, others say it is faster than a normal proxy configuration. I have seen AJP function superbly on an enterprise-level system and I have never had any problems with it.
+</p>
+
+<p>
+First make sure the module is loaded:
+</p>
+
+    
+<p>
+<code>grep ajp /etc/httpd/conf/httpd.conf</code>
+</p>
+
+<p>
+Should yield the result: "LoadModule proxy_ajp_module modules/mod_proxy_ajp.so"
+</p>
+
+<p>
+This is enabled and available by default within CentOS. Getting/building a proxy_ajp module is a PITA, and if it is not available to you, that is outside the scope of this doc (although I have done this before and have been successful – maybe I’ll write a guide later).
+</p>
+
+<p>
+Now configure the vhost (this file didn’t exist, so vi will create it for me):
+</p>
+
+    
+<p>
+<code>vi /etc/httpd/conf.d/vhosts.conf</code>
+</p>
+
+<p>
+And add:
+</p>
+<pre>
+NameVirtualHost *:80
+&lt;VirtualHost *:80&gt;
+        ServerName ci.domain.com 
+        ProxyRequests Off
+        ProxyPreserveHost On
+        ProxyPass / ajp://127.0.0.1:8009/
+        ProxyPassReverse / ajp://127.0.0.1:8009/
+        ProxyPassReverseCookiePath / /
+&lt;/VirtualHost&gt;
+</pre>
+<p>
+Save, quit vi (:wq), and start httpd for the first time. It should start without a problem; Tomcat (Jenkins) does not need to be running for this to work – the proxy will simply timeout and fail until the downstream service is online.
+<code>service httpd start;</code>
+</p>
+
+<p>
+Go ahead and start Jenkins for the first time:
+</p>
+    
+<p>
+<code>service jenkins start;</code>
+</p>
+
+<p>
+Navigate to the domain you install it under (in this example I ci.domain.com). Happy building!
+</p>
+
+
+<h2 id="toc_1.1">Part 2</h2>
+
+<h3 id="toc_1.1.1">Recommended (Required) Plugins for Jenkins</h3>
+<pre>
+wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit
+java -jar jenkins-cli.jar -s http://localhost:8080 safe-restart
+</pre>
+
+<h3 id="toc_1.1.2">Installing Ant</h3>
+<pre>
+wget http://ftp.heanet.ie/mirrors/www.apache.org/dist/ant/binaries/apache-ant-1.8.4-bin.tar.gz
+tar -zxf apache-ant-1.8.4-bin.tar.gz
+sudo mv apache-ant-1.8.4 /usr/local
+sudo ln -s /usr/local/apache-ant-1.8.4/bin/ant /usr/bin/ant
+</pre>
+
+<h3 id="toc_1.1.3">PHP Tools for Jenkins Jobs</h3>
+<pre>
+sudo pear upgrade PEAR
+pear version
+sudo pear config-set auto_discover 1
+sudo pear install pear.phpqatools.org/phpqatools pear.netpirates.net/phpDox  (this gets thelatest stable versions)
+sudo pear install pear.phpdoc.org/phpdocumentor
+pear channel-discover pear.phpdoc.org
+pear install phpdoc/phpDocumentor-alpha
+pear install pear.apigen.org/apigen
+sudo pear install phpunit/ppw
+sudo yum  install php5-xml (needed for phpdocumentor)
+#sudo apt-get install python-software-properties (needed for phpdocumentor)
+#sudo add-apt-repository ppa:gviz-adm/graphviz-dev 
+sudo yum update
+sudo yum install graphviz
+sudo yum upgrade grahpviz
+</pre>
+
+<h3 id="toc_1.1.4">Installing Xdebug on CentOS</h3>
+
+<p>
+Here are the steps to follow from <a href="http://tech.nigel.in/2007/08/installing-xdebug-for-php-on-centos-4.html">http://tech.nigel.in/2007/08/installing-xdebug-for-php-on-centos-4.html</a>
+</p>
+
+<p>
+1. You need to install PHP’s devel package for PHP commands execution
+<code>yum install php-devel</code>
+</p>
+
+<p>
+2. Next install GCC and GCC C++ compilers to compile Xdebug extension yourself.
+<code>yum install gcc gcc-c++ autoconf automake</code>
+</p>
+
+<p>
+3. Compile Xdebug
+<code>pecl install Xdebug</code>
+</p>
+
+<p>
+4. Let PHP load the Xdebug extension. On Centos, extensions are loaded from the folder php.d located at /etc/php.d
+In there create xdebug.ini file and add these lines.
+</p>
+<pre>
+;Enable Xdebug extension module
+zend_extension=xdebug.so
+</pre>
+
+<p>
+4B. Make xdebu.so 0755
+<code>sudo chmod 0755 /usr/lib64/php/modules/xdebug.so</code>
+</p>
+
+<p>
+5. Find the php.ini file using
+<code>locate php.ini</code>
+</p>
+
+<p>
+And add the following line
+</p>
+<pre>
+[xdebug]
+zend_extension="/usr/lib64/php/modules/xdebug.so"
+xdebug.remote_enable = 1
+</pre>
+
+<p>
+6. Restart Apache
+<code>service httpd restart</code>
+</p>
+
+<p>
+7. Test if it works – create test.php with the following code
+</p>
+
+<p>
+&lt;?php phpinfo() ?&gt;
+</p>
+
+<p>
+and check if you have the following output
+</p>
+
+<h4 id="toc_1.1.4.1">Troubleshoot</h4>
+<ul>
+<li>
+PHP Warning:  Module 'xdebug' already loaded in Unknown on line 0
+</li>
+<ul>
+<li>
+remove the xdebug.ini file in /etc/php.d/
+</li>
+</ul>
+</ul>
+
+<ul>
+<li>
+Ant "Unable To Locate tools.jar" 
+</li>
+<ul>
+<li>
+first run ant as sudo <code>sudo ant</code> . if the issue goes away then its just permissions. if that dont work do the below
+</li>
+<li>
+<a href="http://stackoverflow.com/questions/6285301/ant-error-java-home-does-not-point-to-sdk">http://stackoverflow.com/questions/6285301/ant-error-java-home-does-not-point-to-sdk</a>
+</li>
+<ul>
+<li>
+solution: <a href="GlobalEnvrionment.html">GlobalEnvrionment</a> 
+</li>
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li>
+Jenkins cant get connect to git
+</li>
+<ul>
+<li>
+<a href="http://stackoverflow.com/questions/12599077/setting-up-jenkins-on-centos-problems-with-ssh-keys-and-git">http://stackoverflow.com/questions/12599077/setting-up-jenkins-on-centos-problems-with-ssh-keys-and-git</a>
+</li>
+</ul>
+</ul>
+
+<p>
+<code>sudo su - jenkins</code>
+</p>
+
+<p>
+if your logged in user has sudo access.
+</p>
+<blockquote>
+Then run
+</blockquote>
+<blockquote>
+<code>ssh-keygen -t rsa</code>
+</blockquote>
+<blockquote>
+to generate an RSA keypair for the jenkins user, and you can upload the public key to your git server. The key will be generated as /var/lib/jenkins/.ssh.id_ra.pub if you take the defaults.
+you have to make sure the file gets stored as the jenkins user
+</blockquote>
+
+<p>
+also need to have the connection key with github to be working. 
+As the jenkkins user try to clone a github repo. If you do not have permissions or allows then need to change the security settings for jenkins users temporarily.
+<code>sudo vi /etc/passwd</code>
+change /bin/false to bin/bash for jenkins. save file
+swtich back to jenkins. clone a repo. if successful rever the changes you made.
+<em>source</em>:<a href="http://www.andrewzammit.com/blog/installing-jenkins-ci-on-centos-6-x-tomcat-with-an-ajp-proxy/">http://www.andrewzammit.com/blog/installing-jenkins-ci-on-centos-6-x-tomcat-with-an-ajp-proxy/</a>
+<em>source</em> <a href="http://ccswiki/index.php/InstallJenkingPhp">http://ccswiki/index.php/InstallJenkingPhp</a>
+</p>
+
+</div>
+</body>
+</html>

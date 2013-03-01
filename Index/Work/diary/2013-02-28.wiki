@@ -1,0 +1,33 @@
+= Daily stand up =
+
+== Danny ==
+* 389 is configured
+* yum update to fix some of the issues encountered
+* ignoring some issues that are not part of this sprint.
+* moving docs to wiki
+* additional testing
+* add more stuff to api
+* task to move api dev. to amazon (private and private dns)
+* add docs to google docs.
+
+== Gary ==
+* working on the nonce.
+* meet with danny to debug issues.
+* speak with rob and chris to discuss transition.
+
+== Jason ==
+* No Tasks.
+* want to use sqlserver for analysis and data warehouse. 
+* talk to danny about redis and dynamo (amazon) integration
+
+== Stephen ==
+* Got node.js installed and chai package.
+* work on test within rally.
+* finish documenting tests
+* will pass off to team .
+
+== Shahin ==
+* research on how amazon and load balancing worked.
+* got feedback from danny 
+* worked with him to come up with a schema for our system.
+* install and configuring jenkins on aws.

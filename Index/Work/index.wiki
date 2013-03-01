@@ -30,6 +30,9 @@
     - [[MysqlCentos6|Setting up mysql on centos 6.3]]
     - [[CentosLAMP|Install Apache, MySQL 5.5.30 & PHP 5.4.11 on RHEL/CentOS 6.3/5.6 & Fedora 18-12]]
     - [http://www.howtoforge.com/creating-your-own-webserver-with-bind-and-apache-centos5-p2 Add Domain in Centos]
+    - [[JenkinsCentos|Installing Jenkins CI on CentOS 6.x]]
+    - [[GlobalEnvrionment|Setting up Global Environment Variables in CentOS]]
+    - [[InstallJava | Install Java on centos]]
 
 === Troubleshooting ===
 * [[CentosErrors|Centos Errors when doing yum update]]
@@ -61,3 +64,4 @@ sudo /sbin/swapon /var/swap.1
 * http://www.initializr.com/ 
 * http://coenraets.org/blog/2012/02/sample-app-with-backbone-js-and-twitter-bootstrap/ 
 * crontab: http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/ 
+* [http://www.andrewzammit.com/blog/ Good Technical stuff ]
