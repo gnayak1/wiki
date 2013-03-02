@@ -129,6 +129,22 @@ sudo yum install graphviz
 sudo yum upgrade grahpviz
 }}}
 
+=== Installing Nodejs ===
+{{{
+    
+
+    su - 
+    yum install openssl-devel
+    cd /usr/local/src
+    wget http://nodejs.org/dist/v0.8.15/node-v0.8.15.tar.gz
+    tar zxvf node-v0.8.15.tar.gz
+    cd node-v0.8.15
+    ./configure
+    make
+    make install
+
+}}}
+
 === Installing Xdebug on !CentOS ===
 
 Here are the steps to follow from http://tech.nigel.in/2007/08/installing-xdebug-for-php-on-centos-4.html

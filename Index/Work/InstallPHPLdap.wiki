@@ -1,0 +1,10 @@
+= Install PHP Ldap =
+{{{
+yum install php-ldap
+
+vi /etc/php.ini
+
+add extension=ldap.so
+
+service httpd restart
+}}}

@@ -188,7 +188,23 @@ sudo yum install graphviz
 sudo yum upgrade grahpviz
 </pre>
 
-<h3 id="toc_1.1.4">Installing Xdebug on CentOS</h3>
+<h3 id="toc_1.1.4">Installing Nodejs</h3>
+<pre>
+    
+
+    su - 
+    yum install openssl-devel
+    cd /usr/local/src
+    wget http://nodejs.org/dist/v0.8.15/node-v0.8.15.tar.gz
+    tar zxvf node-v0.8.15.tar.gz
+    cd node-v0.8.15
+    ./configure
+    make
+    make install
+
+</pre>
+
+<h3 id="toc_1.1.5">Installing Xdebug on CentOS</h3>
 
 <p>
 Here are the steps to follow from <a href="http://tech.nigel.in/2007/08/installing-xdebug-for-php-on-centos-4.html">http://tech.nigel.in/2007/08/installing-xdebug-for-php-on-centos-4.html</a>
@@ -254,7 +270,7 @@ xdebug.remote_enable = 1
 and check if you have the following output
 </p>
 
-<h4 id="toc_1.1.4.1">Troubleshoot</h4>
+<h4 id="toc_1.1.5.1">Troubleshoot</h4>
 <ul>
 <li>
 PHP Warning:  Module 'xdebug' already loaded in Unknown on line 0

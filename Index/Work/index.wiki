@@ -33,6 +33,7 @@
     - [[JenkinsCentos|Installing Jenkins CI on CentOS 6.x]]
     - [[GlobalEnvrionment|Setting up Global Environment Variables in CentOS]]
     - [[InstallJava | Install Java on centos]]
+    - [[InstallPHPLdap|Install PHP Ldap]]
 
 === Troubleshooting ===
 * [[CentosErrors|Centos Errors when doing yum update]]
