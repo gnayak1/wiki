@@ -1,0 +1,12 @@
+= WHere should we place our custom validators =
+* create your validator folder anywhere you want in your project ..
+  (application/validator)
+* then in the classes you want to use the validator, let it know where the
+  validator resides
+  {{{
+  $this->addElementPrefixPath('My_Validate', APPLICATION_PATH .
+  '/../library/validate', 'validate');
+  $credits->addValidator('NumericBetween');
+  }}}
+  
+  _source_:http://stackoverflow.com/questions/9841149/zend-plugin-not-found-in-the-registry

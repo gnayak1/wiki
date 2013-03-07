@@ -1,0 +1,35 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>CustomValidators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">WHere should we place our custom validators</h1>
+<ul>
+<li>
+create your validator folder anywhere you want in your project ..
+  (application/validator)
+</li>
+<li>
+then in the classes you want to use the validator, let it know where the
+  validator resides
+<pre>
+$this-&gt;addElementPrefixPath('My_Validate', APPLICATION_PATH .
+'/../library/validate', 'validate');
+$credits-&gt;addValidator('NumericBetween');
+</pre>
+</li>
+</ul>
+  
+<p>
+  <em>source</em>:<a href="http://stackoverflow.com/questions/9841149/zend-plugin-not-found-in-the-registry">http://stackoverflow.com/questions/9841149/zend-plugin-not-found-in-the-registry</a>
+</p>
+
+</div>
+</body>
+</html>

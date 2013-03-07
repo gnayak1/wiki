@@ -21,6 +21,7 @@
 * [http://goo.gl/7bYac Creating Zf1 application example 2]
 * [http://goo.gl/nN4vO ZendFramework and Authentication]
 * [http://bit.ly/V3Sx1s Custom Zend_Auth_Adapter and Zend_Auth_Storage classes]
+* [[CustomValidators|How to create and initialize custom validators]]
 
 == Misc ==
 * [https://wiki.archlinux.org/index.php/Color_Bash_Prompt Bash Color Prompt]
