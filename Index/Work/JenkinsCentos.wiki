@@ -215,5 +215,21 @@ As the jenkkins user try to clone a github repo. If you do not have permissions 
 `sudo vi /etc/passwd`
 change /bin/false to bin/bash for jenkins. save file
 swtich back to jenkins. clone a repo. if successful rever the changes you made.
+
+
+* Increase Heap size / Memory
+    - http://stackoverflow.com/questions/5936519/how-to-give-jenkins-more-heap-space-when-its-started-as-a-service-under-windows
+{{{
+sudo vi /etc/sysconfig/jenkins
+
+and set JENKINS_JAVA_OPTIONS to
+
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Xmx2048m -XX:MaxPermSize=512m"
+
+then restart Jenkins
+
+sudo /sbin/service jenkins restart
+
+}}}
 _source_:http://www.andrewzammit.com/blog/installing-jenkins-ci-on-centos-6-x-tomcat-with-an-ajp-proxy/
 _source_ http://ccswiki/index.php/InstallJenkingPhp

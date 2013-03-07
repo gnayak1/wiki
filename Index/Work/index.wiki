@@ -34,6 +34,7 @@
     - [[GlobalEnvrionment|Setting up Global Environment Variables in CentOS]]
     - [[InstallJava | Install Java on centos]]
     - [[InstallPHPLdap|Install PHP Ldap]]
+    - [[CheckOpenPorts|Check and open ports in CentOS]]
 
 === Troubleshooting ===
 * [[CentosErrors|Centos Errors when doing yum update]]
@@ -66,3 +67,8 @@ sudo /sbin/swapon /var/swap.1
 * http://coenraets.org/blog/2012/02/sample-app-with-backbone-js-and-twitter-bootstrap/ 
 * crontab: http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/ 
 * [http://www.andrewzammit.com/blog/ Good Technical stuff ]
+* http://www.malijuthemeshop.com/live_previews/mws-admin/
+* http://themeforest.net/item/oresume-responsive-vcard-portfolio/full_screen_preview/3707810?ref=takeaction&ref=takeaction&clickthrough_id=114397772&redirect_back=true
+* http://themeforest.net/item/greened-bootstrap-coming-soon-page/full_screen_preview/3632151?ref=takeaction
+* http://www.tripwiremagazine.com/2013/02/twitter-bootstrap-templates.html
+* http://bootstraphero.com/the-big-badass-list-of-twitter-bootstrap-resources

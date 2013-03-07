@@ -1,0 +1,95 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>CheckOpenPorts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Check and open ports in Centos</h1>
+
+<p>
+If you want to open or close a port for a Linux firewall you have to edit the rules in the iptables configuration. By default iptables firewall stores its configuration at /etc/sysconfig/iptables file. You need to edit this file and add rules to open port.
+</p>
+
+<p>
+Here are the steps to open the port XY using the default visual editor vi:
+</p>
+
+<p>
+Open port XY
+</p>
+
+<p>
+Open flle /etc/sysconfig/iptables:
+</p>
+
+<p>
+<code># vi /etc/sysconfig/iptables</code>
+</p>
+
+<p>
+Append rule as follows:
+</p>
+
+<p>
+<code>-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport XY -j ACCEPT</code>
+</p>
+
+ 
+
+<p>
+Save and close the file. Restart iptables:
+</p>
+
+<p>
+<code># /etc/init.d/iptables restart</code>
+</p>
+
+<p>
+Verify that port is open
+</p>
+
+<p>
+Run following command:
+</p>
+
+<p>
+<code># netstat -tulpn | less</code>
+</p>
+
+<p>
+Make sure iptables is allowing port connections:
+</p>
+
+<p>
+<code># iptables -L -n</code>
+</p>
+
+
+<p>
+remember to open port listening
+add <code>Listen {portnumber}</code> in
+/etc/http/conf/http.conf
+</p>
+
+<p>
+if in aws
+turn on the port in the group security
+</p>
+
+<p>
+restart apache and iptables
+</p>
+
+<p>
+<code>sudo service iptables restart</code>
+<code>sudo service httpd restart</code>
+</p>
+
+</div>
+</body>
+</html>

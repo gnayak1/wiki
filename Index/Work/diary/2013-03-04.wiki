@@ -1,0 +1,34 @@
+= Daily Standup =
+
+== Shahin ==
+* Finish deployment process
+* Stage documents on open port
+* Snapshot api
+* snapshot ci
+* profile unit tests
+* update php on all servers
+* Create repo on github
+
+==Stephen==
+* writing tests for the login story and password recovery
+* installed selenium server and IDE.
+* php tests or other languages
+
+==Todd==
+* comps for specs are done and rally.
+* what is next for design and wireframe.
+* need feedback for business.
+
+==Caly==
+* Next sprint resetting of user name.
+* Use cases submitted to sam for points.
+* Meeting to define admin tools for points system.
+
+== Danny ==
+# Finished migrating the unit tests for Core to new AWS-based CI server
+# 80% on migrating project documentation to GFM
+# 50% on migrating API to AWS
+# 95% on migrating integration test suite to AWS CI
+
+Planned:
+Finish all of the above

@@ -1,0 +1,44 @@
+= Check and open ports in Centos =
+
+If you want to open or close a port for a Linux firewall you have to edit the rules in the iptables configuration. By default iptables firewall stores its configuration at /etc/sysconfig/iptables file. You need to edit this file and add rules to open port.
+
+Here are the steps to open the port XY using the default visual editor vi:
+
+Open port XY
+
+Open flle /etc/sysconfig/iptables:
+
+`# vi /etc/sysconfig/iptables`
+
+Append rule as follows:
+
+`-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport XY -j ACCEPT`
+
+ 
+
+Save and close the file. Restart iptables:
+
+`# /etc/init.d/iptables restart`
+
+Verify that port is open
+
+Run following command:
+
+`# netstat -tulpn | less`
+
+Make sure iptables is allowing port connections:
+
+`# iptables -L -n`
+
+
+remember to open port listening
+add `Listen {portnumber}` in
+/etc/http/conf/http.conf
+
+if in aws
+turn on the port in the group security
+
+restart apache and iptables
+
+`sudo service iptables restart`
+`sudo service httpd restart`

@@ -1,0 +1,20 @@
+= Daily Standup =
+
+== Danny ==
+Finished documentation
+created instance for dev of api
+password policy
+
+move dev machine to staging for api.
+
+== Caly ==
+Continue work on points.
+Direction
+
+== Stephen ==
+Ruby config and cucumber to do tests.
+look into mocha tests for integration.
+
+
+== Shahin ==
+Implement password questions and forgot password 

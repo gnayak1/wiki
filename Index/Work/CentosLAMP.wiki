@@ -50,5 +50,8 @@ sudo vi /etc/hosts
 }}}
 instantiate the new hostname to localhost and its ip
 
+* Install php 5.4 and up
+http://www.if-not-true-then-false.com/2010/install-apache-php-on-fedora-centos-red-hat-rhel/
+
 
 _sources_: http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/
