@@ -1,0 +1,137 @@
+=Barebones postfix install for Ubuntu=
+
+==Why "barebones"?==
+
+A barebones article is intended for users who just want to get a software package up and running with the default options and no frills. It's best used by either experienced Linux administrators or users needing to get a package installed to satisfy a prerequisite without going through extensive customization. Most users are advised to use the more in-depth tutorials found elsewhere in the Slicehost articles repository so they can better learn the software they are implementing.
+
+For a more comprehensive survey of this topic, check the links in the "Further reading" section at the end of the article.
+==Installing postfix==
+
+Run the following commands:
+
+`sudo aptitude update`
+
+`sudo aptitude install postfix`
+
+Postfix will ask you to select an install type. Unless you know for certain you want a different install type, choose "Internet Site".
+
+Next postfix will ask for your default email domain name. When an email is sent from an account on your slice (like an alert from a program), this value will be appended to the account name. If you set this value to "example.com", emails sent by root on your slice would have the "from" address of "root@example.com".
+==Adding iptables rules for postfix (optional)==
+
+The default Ubuntu images for Slicehost do not have iptables configured to restrict any ports.
+
+If you have added iptables restrictions yourself you will need to open input ports only if you intend this mail server to receive email intended for your domain. You would also need to open ports if you intend to allow mail clients to send email through your mail server, but this is not recommended and will not be covered in this article. To allow email to come in to your mail server you can add the following iptables rules:
+{{{
+-I INPUT -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+-I OUTPUT -p tcp --sport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+}}}
+==Starting and stopping postfix==
+
+You can start postfix with:
+
+`sudo /etc/init.d/postfix start`
+
+Note that the first time postfix launches may take a little longer than normal as it parses configuration files for the first time.
+
+Similarly, you can stop postfix with:
+
+`sudo /etc/init.d/postfix stop`
+
+You can also issue a restart command to postfix with:
+
+`sudo /etc/init.d/postfix restart`
+
+==Starting postfix at boot time==
+
+Ensure postfix will start when the slice reboots by running:
+
+`sudo /usr/sbin/update-rc.d postfix defaults`
+
+==Log files==
+
+Postfix's logging is handled by the system's syslog daemon, so log file locations are configured in /etc/syslog.conf. By default the mail logs are located in the directory:
+
+`/var/log`
+
+You will need to use sudo to view the logs.
+
+Three of the log files filter entries according to severity (informational, warning, and error):
+{{{
+/var/log/mail.info
+/var/log/mail.warn
+/var/log/mail.err
+}}}
+The mail.log file acts as a combined log of the above three types of mail events:
+
+`/var/log/mail.log`
+
+==Configuration files==
+
+Postfix's main configuration directory is:
+
+`/etc/postfix`
+
+The main.cf file
+
+Postfix's main configuration file is:
+
+`/etc/postfix/main.cf`
+
+Some important highlights from that file include:
+
+`myhostname = slicename`
+
+The "myhostname" entry is the fully-qualified domain name postfix will use when reporting its address to other mail servers. Set the "myhostname" value to a full domain name (like "mail.example.com").
+
+`myorigin = /etc/mailname`
+
+The "myorigin" entry refers to the default domain address for outgoing emails. It points to a file, "/etc/mailname", which contains the address you entered during the installation process (normally your base domain name).
+
+`mydestination = example.com, mail.example.com, slicename,
+slicename.example.com, localhost.example.com, localhost.localdomain, localhost`
+
+The "mydestination" entry lists all domains for which this mail server is qualified to receive email. It's important that all address possibilities are covered to prevent mail bounce loops. Bounce loops happen when mail is sent that should be handled by your mail server but postfix is not configured to handle it (resulting in postfix repeatedly bouncing the email back to itself). Entries should include any variants of your slicename and localhost, as well as the address you used for the "myorigin" value.
+
+`inet_interfaces = all`
+
+The "inet_interfaces" entry controls which IP addresses postfix will listen to for connections. The default is to listen to all active interfaces, which is desirable if you intend to receive email for your domain on this mail server. To restrict postfix to only listen to connections on the local machine (so email can be sent from the slice but not received there), change that entry to:
+
+`inet_interfaces = loopback-only`
+
+After changing the main.cf file you can tell postfix to reload its settings without restarting by running:
+
+`/usr/sbin/postfix reload`
+
+==Other configuration files==
+
+Two other files store important configuration information for postfix. The first is:
+
+`/etc/mailname`
+
+As mentioned in the discussion of the "myorigin" setting above, the mailname file contains the fully-qualified domain name of your slice as postfix will report it to other mail servers.
+
+The other file is:
+
+`/etc/aliases`
+
+The aliases file contains the aliases that control what addresses will handle emails to certain accounts that do not exist on your slice. The default entries cover many standard addresses, like "postmaster" to receive problem reports from postfix, and "abuse" to receive complaints regarding misuse of your mail server. All of these addresses forward to the "root" account on your slice by default. You can also specify an external email address as the recipient for an alias, so you could redirect all email from root to your own email address by adding a line to the aliases file such as:
+
+`root: joebob@demoslice.com`
+
+If you edit the /etc/aliases file you should run the following command to ensure postfix will discover the changes:
+
+`sudo /usr/bin/newaliases`
+
+==DNS modifications==
+
+You will need to make one or two DNS changes to ensure smooth operation of your mail server.
+
+You will want to configure reverse DNS for the address postfix is reporting to other mail servers. Many mail servers will reject email as spam if the IP address the mail server is using does not resolve back to the same domain name in reverse DNS. For example, if you set up postfix to use the hostname of "mail.example.com" and that resolves to the IP address "1.2.3.4", configure reverse DNS for "1.2.3.4" to resolve to "mail.example.com".
+
+If you intend to receive email for your domain through this slice you will need to edit the MX record for your domain to point it to the host name you are using for postfix. If your domain is "example.com" and postfix is usng the hostname "mail.example.com", you would set the MX record for example.com to "mail.example.com".
+
+If you are using Slicehost to handle your DNS you can make these changes in the
+!SliceManager's DNS tab. The MX records can be set in the "Domains" section, and the "Reverse DNS" section can be used to edit reverse DNS entries for IP addresses.
+
+_source_: http://articles.slicehost.com/2010/3/1/barebones-postfix-install-for-ubuntu
+http://tombuntu.com/index.php/2009/12/22/send-outgoing-email-with-postfix/

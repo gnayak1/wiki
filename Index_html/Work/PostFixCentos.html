@@ -1,0 +1,253 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>PostFixCentos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Barebones postfix install for CentOS</h1>
+
+<h2 id="toc_1.1">Why "barebones"?</h2>
+
+<p>
+A barebones article is intended for users who just want to get a software package up and running with the default options and no frills. It's best used by either experienced Linux administrators or users needing to get a package installed to satisfy a prerequisite without going through extensive customization. Most users are advised to use the more in-depth tutorials found elsewhere in the Slicehost articles repository so they can better learn the software they are implementing.
+</p>
+
+<h2 id="toc_1.2">Installing postfix</h2>
+
+<p>
+Run the following commands:
+</p>
+
+<p>
+<code>sudo yum install postfix</code>
+</p>
+
+<p>
+Postfix will ask you to select an install type. Unless you know for certain you want a different install type, choose "Internet Site".
+</p>
+
+<p>
+Next postfix will ask for your default email domain name. When an email is sent from an account on your slice (like an alert from a program), this value will be appended to the account name. If you set this value to "example.com", emails sent by root on your slice would have the "from" address of "root@example.com".
+<h2 id="toc_1.3">Adding iptables rules for postfix (optional)</h2>
+</p>
+
+<p>
+The Slicehost articles on configuring <a href="CentOS.html">CentOS</a> slices close the ports postfix would use to receive email, as do the default <a href="CentOS.html">CentOS</a> iptables rules.
+</p>
+
+<p>
+You will need to open input ports only if you intend this mail server to receive email intended for your domain. You would also need to open ports if you intend to allow mail clients to send email through your mail server, but this is not recommended and will not be covered in this article. To allow email to come in to your mail server you can add the following iptables rules:
+</p>
+
+<pre>
+sudo /sbin/iptables -I INPUT -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo /sbin/iptables -I OUTPUT -p tcp --sport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+</pre>
+
+<p>
+To save those rules so they'll take effect next time the slice is rebooted, run:
+</p>
+
+<p>
+<code>sudo service iptables save</code>
+</p>
+
+<h2 id="toc_1.4">Starting and stopping postfix</h2>
+
+<p>
+You can start postfix with:
+</p>
+
+<p>
+<code>sudo /etc/init.d/postfix start</code>
+</p>
+
+<p>
+Note that the first time postfix launches may take a little longer than normal as it parses configuration files for the first time.
+</p>
+
+<p>
+Similarly, you can stop postfix with:
+</p>
+
+<p>
+<code>sudo /etc/init.d/postfix stop</code>
+</p>
+
+<p>
+You can also issue a restart command to postfix with:
+</p>
+
+<p>
+<code>sudo /etc/init.d/postfix restart</code>
+</p>
+
+<p>
+Starting postfix at boot time
+</p>
+
+<p>
+Ensure postfix will start when the slice reboots by running:
+</p>
+<pre>
+sudo /sbin/chkconfig --add postfix
+
+sudo /sbin/chkconfig postfix on
+</pre>
+<h2 id="toc_1.5">Log files</h2>
+
+<p>
+Postfix's logging is handled by the system's syslog daemon, so log file locations are configured in /etc/syslog.conf. By default the mail logs are located in the directory:
+</p>
+
+<p>
+<code>/var/log</code>
+</p>
+
+<p>
+You will need to use sudo to view the logs.
+</p>
+
+<p>
+By default postfix log entries are directed to the maillog file:
+</p>
+
+<p>
+<code>/var/log/maillog</code>
+</p>
+
+<h2 id="toc_1.6">Configuration files</h2>
+
+<p>
+Postfix's main configuration directory is:
+</p>
+
+<p>
+<code>/etc/postfix</code>
+</p>
+
+<p>
+The main.cf file
+</p>
+
+<p>
+Postfix's main configuration file is:
+</p>
+
+<p>
+<code>/etc/postfix/main.cf</code>
+</p>
+
+<p>
+Some important highlights from that file include:
+</p>
+
+<p>
+<code>myhostname = slicename</code>
+</p>
+
+<p>
+The "myhostname" entry is the fully-qualified domain name postfix will use when reporting its address to other mail servers. Set the "myhostname" value to a full domain name (like "mail.example.com").
+</p>
+
+<p>
+<code>myorigin = mail.example.com</code>
+</p>
+
+<p>
+The "myorigin" entry refers to the default domain address for outgoing emails. It should be the fully-qualified domain name of your slice as postfix will report it to other mail servers.
+</p>
+
+<p>
+<code>mydestination = example.com, mail.example.com, slicename, slicename.example.com, localhost.example.com, localhost.localdomain, localhost</code>
+</p>
+
+<p>
+The "mydestination" entry lists all domains for which this mail server is qualified to receive email. It's important that all address possibilities are covered to prevent mail bounce loops. Bounce loops happen when mail is sent that should be handled by your mail server but postfix is not configured to handle it (resulting in postfix repeatedly bouncing the email back to itself). Entries should include any variants of your slicename and localhost, as well as the address you used for the "myorigin" value.
+</p>
+
+<p>
+<code>inet_interfaces = localhost</code>
+</p>
+
+<p>
+The "inet_interfaces" entry controls which IP addresses postfix will listen to for connections. The default is to restrict postfix to only listen to connections on the local machine (so email can be sent from the slice but not received there). To listen to all active interfaces, which is only desirable if you intend to receive email for your domain on this mail server, change that entry to:
+</p>
+
+<p>
+<code>inet_interfaces = all</code>
+</p>
+
+<p>
+After changing the main.cf file you can tell postfix to reload its settings without restarting by running:
+</p>
+
+<p>
+<code>/usr/sbin/postfix reload</code>
+</p>
+
+<h2 id="toc_1.7">Other configuration files</h2>
+
+<p>
+One other file stores important configuration information for postfix:
+</p>
+
+<p>
+<code>/etc/aliases</code>
+</p>
+
+<p>
+The aliases file contains the aliases that control what addresses will handle emails to certain accounts that do not exist on your slice. The default entries cover many standard addresses, like "postmaster" to receive problem reports from postfix, and "abuse" to receive complaints regarding misuse of your mail server. All of these addresses forward to the "root" account on your slice by default. You can also specify an external email address as the recipient for an alias, so you could redirect all email from root to your own email address by adding a line to the aliases file such as:
+</p>
+
+<p>
+<code>root: joebob@demoslice.com</code>
+</p>
+
+<p>
+If you edit the /etc/aliases file you should run the following command to ensure postfix will discover the changes:
+</p>
+
+<p>
+<code>sudo /usr/bin/newaliases</code>
+</p>
+
+<h2 id="toc_1.8">DNS modifications</h2>
+
+<p>
+You will need to make one or two DNS changes to ensure smooth operation of your mail server.
+</p>
+
+<p>
+You will want to configure reverse DNS for the address postfix is reporting to other mail servers. Many mail servers will reject email as spam if the IP address the mail server is using does not resolve back to the same domain name in reverse DNS. For example, if you set up postfix to use the hostname of "mail.example.com" and that resolves to the IP address "1.2.3.4", configure reverse DNS for "1.2.3.4" to resolve to "mail.example.com".
+</p>
+
+<p>
+If you intend to receive email for your domain through this slice you will need to edit the MX record for your domain to point it to the host name you are using for postfix. If your domain is "example.com" and postfix is usng the hostname "mail.example.com", you would set the MX record for example.com to "mail.example.com".
+</p>
+
+<p>
+If you are using Slicehost to handle your DNS you can make these changes in the SliceManager's DNS tab. The MX records can be set in the "Domains" section, and the "Reverse DNS" section can be used to edit reverse DNS entries for IP addresses.
+The Spamhaus policy block list
+</p>
+
+<p>
+Spamhaus is a service that assists ISPs with preventing unsolicited email (spam) from passing through their mail servers. One of the tools Spamhaus employs is a "Policy Block List" which lists IP addresses that belong to a hosting provider (such as Slicehost) and blocks them by default. This means that it is likely that a new slice, or one that hasn't been used as a mail server before, will be on their policy block list. Being on the PBL doesn't mean your address is blocked for spamming. The list is only there as a precaution against potential abuse.
+</p>
+
+<p>
+Fortunately it's easy to check the Spamhaus PBL to see if your slice's IP address is on the list, and it's also easy to remove it. Go to the Spamhaus Block List Removal Center and enter your IP address. If your IP address is listed in the PBL you will be provided with a link you can use to remove it from the block list. Note that the removal process requires the use of an email account that is not part of a free service (like gmail.com or hotmail.com), but you will be able to use an address that delivers mail to your newly configured mail server for verification purposes.
+</p>
+
+<p>
+<em>source</em> :<a href="http://articles.slicehost.com/2010/3/1/barebones-postfix-install-for-centos">http://articles.slicehost.com/2010/3/1/barebones-postfix-install-for-centos</a>
+</p>
+
+</div>
+</body>
+</html>

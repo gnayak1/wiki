@@ -36,6 +36,9 @@
     - [[InstallJava | Install Java on centos]]
     - [[InstallPHPLdap|Install PHP Ldap]]
     - [[CheckOpenPorts|Check and open ports in CentOS]]
+    - [[PostFixCentos|Barebones postfix install for CentOS]]
+* Ubuntu
+    - [[PostFixUbuntu|Barebones postfix install for Ubuntu]]
 
 === Troubleshooting ===
 * [[CentosErrors|Centos Errors when doing yum update]]
@@ -54,6 +57,8 @@ sudo /sbin/swapon /var/swap.1
 == LDAP ==
 * [http://mwiki.yyovkov.net/index.php/Install_LDAP_port_389_on_CentOS Install LDAP Port 389 on centos]
 
+== Good Sources ==
+* http://articles.slicehost.com/email
 == Links ==
 * [http://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/ Random Password Generator]
 * http://www.edmondscommerce.co.uk/zend-framework/zend-framework-rest-http-basic-authentication/ 
