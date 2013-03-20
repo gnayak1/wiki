@@ -1,0 +1,8 @@
+
+=EOD=
+* just a topic on responsive web design, it is the best way to develop website these days. mainly because
+    responsive design sites have one URL and the same HTML, regardless of device, which makes it easier and more efficient for Google to crawl, index, and organize content
+* Strippin all vpcs down only to our dev instances so that we can get something working..
+* working on API call to let user know that their password is incorrect given that they put in the correct password.
+* working on front end helper classes to wrap the right validation aroudn the write boxes for looks. Todd really wants his read text boxes =)
+

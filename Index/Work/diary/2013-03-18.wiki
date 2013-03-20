@@ -1,0 +1,13 @@
+
+=EOD= 
+* Finished the frontend for the login screen. Will now move to forgot password user story.
+* worked with danny to finish the vpc. he did a great job on getting it up and
+  running and the schema is pretty secure and solid.
+  * gonna work on some unit tests.
+  * FYI: based on discussion with Rob, if we are looking to finish and deliver
+    our project by 5/30 and have it to be fully integrated with legacy system by
+    6/15, we shoudlb aggressive with hiring php developer, dba for npd, sysadmin
+    and ux dev.
+
+* persian new year is on wednesday =)
+

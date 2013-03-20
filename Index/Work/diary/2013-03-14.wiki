@@ -1,0 +1,26 @@
+
+= EOD =
+* Blocker: Danny cant hit the VPC from his vpn period. we've been workig first
+  part of day trying to getting it corrected. Finally decided to create a ticket
+  to mike to tackle it on his end as he has already set up the VPC.
+* Finished the front end username, password validation on the login screen.
+  modified the look . 80% done with the login US and should be good by eod
+  tomorrow.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

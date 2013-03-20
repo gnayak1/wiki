@@ -1,0 +1,11 @@
+
+
+== EOD ==
+* Finished priliminary design of login
+* been working with danny to get our network on amazon up and squared away
+* the regression tests that stephen was riding are taking longer due to learning
+  cure so danny is taking over that again and stephen will shadow for this
+  sprint.
+* working with todd to come up with a middle ground of design and performance.
+* setting up the jobs and documentation for profile project.
+* working on resetting password throug email functionality
