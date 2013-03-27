@@ -1,0 +1,19 @@
+
+
+=EOD=
+* updated all unit tests
+* create some new ones for the Tasks in this sprint
+* helped danny debug env issues for api
+* working on the US for this sprint.
+* Concerns: If we want to start launching our site to production , we need 
+    - actual approved domain. currently it is myprofile.creativechannel.com
+    - need a logo or some sort of a branding for the site to distinguish it
+* Also I've already spoken with Adam and Sam and I think it would be a good idea
+  for me to go go to the bay for a couple of days to meet the new devs and see
+    if they can also bring something to the table for our team here. Sam has
+        mentioned that the devs are in office on tuesday.  So i was thinking a
+        monday-tuesday or tuesday-wednesday remote work day.  I was thinking of
+        going week of 4/16 if its cool.
+
+        Please let me know. thanks
+

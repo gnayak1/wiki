@@ -1,0 +1,10 @@
+
+
+=EOD=
+* Finished the sprint and had bagger review it.
+* updated code on latests, staging, and master will get deployed by push butto
+  their respective servers.
+* Waiting on bagger to tell me staging code is good so that i can tag and mark
+  it as stable.
+* Updating my unit tests until chris is done with the user stories then tomorrow
+  will create and update tasks.

@@ -1,34 +1,8 @@
 = Task List  =
-  architecture. Approach frameworks
-* [] sam will define the MVP (min viable produc) by end of this week 2/22/2013
-  (it is in rally)
-* [] Set up dev, staging, production ec2 servers for all our projects
-    - [] dev mysql
-    - [ ] staging mysql
-    - [ ] production mysql
-    - [ ] dev api
-    - [ ] staging api
-    - [ ] production api
-    - [ ] dev ldap
-        *  [] Work on environments (389 Dir) for ldap
-            -  [X] Shahin set up the aws settings and permissions and server environment.
-            Install centos and 389 dir
-            - [ ] Danny configuring 389
-            - [ ] Take snapshot of the ami
-            - [ ] Create read only user for Nagios
+* [ ] Create Task: instead of running a full-on MX, I would suggest setting up POSTFIX as a
+  fowarder, and then pass everything to creativechannel Exchange server
+  more secure and much, much less hassle...let the NOC OPS team deal with all
+  the headaches
+  it's really easy these days to make a mistake and get the entire
+  creativechannel domain blacklisted
 
-    - [ ] staging ldap
-    - [ ] production ldap
-    - [ ] staging profile
-    - [ ] production profile
-* [ ] jenkins, github, rally integration
-* [ ] Code and environment Monitoring (Nagios)
-* [ ] Core Code needs Framework
-* [X] Set up meeting with jason, Danny, Sam (Thursday) to nail down the backend
-* [X] deploying to amazon get keys and creds from jason
-* [ ] Set up AWS Cloudfront for CDN
-
-== Quad IV ==
-
-* [] Increase disk space on VM
- 

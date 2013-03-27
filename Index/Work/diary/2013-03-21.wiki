@@ -1,0 +1,13 @@
+
+
+=EOD=
+* Finished the frontend and backend of forgot question and reset by email.
+* working on reset password by security questions.
+* Did a sample demo of the site i've built with the responsive theme and what i
+  believe what the system would look like to sam, vida and hanoz so that they
+  can see a visualized version of what i think it could look like.
+* working with danny to debug some issues with the API requests.
+* I've asked the team to update the rally system so that the hours reflect how
+  much work has been done and is left.
+* Tomorrow I hope to finish up the rest of the login functionality and have it
+  deployed and tests so that monday we are good to go.

@@ -1,0 +1,10 @@
+
+
+=EOD=
+* Finished the User Stories implementation forgot password with email , security
+questions.
+* Login functionality has been implemented too and is being tested by stephen .
+  so far no big issues.
+* I need to update my unit tests. will try to get them done this weekend as
+  well.
+* Will need to tweek jenkins a bit this weekend and we should be good to go.
