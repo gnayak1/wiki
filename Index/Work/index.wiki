@@ -39,6 +39,7 @@
     - [[PostFixCentos|Barebones postfix install for CentOS]]
 * Ubuntu
     - [[PostFixUbuntu|Barebones postfix install for Ubuntu]]
+    - [[InstallXdebug|Installing Xdebug]]
 
 === Troubleshooting ===
 * [[CentosErrors|Centos Errors when doing yum update]]

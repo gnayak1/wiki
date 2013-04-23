@@ -1,0 +1,18 @@
+
+
+= EOD =
+* Finished the mx record and complete unique email address check for user sign
+  up. its deployed to dev and stephen is testing
+* implemented username recovery by email and thats done as well.
+* spent majority of the afternoon helping danny recover and clean up some dirty
+  code that was accidenly merged in the build. we got that figured out and all
+  the builds are clean and healthy.
+* tried to burn down the sprint as much as i could but dont want to rush dev
+  work either and make mistakes.
+
+* Please let me know in regards to me going to the bay so I can have sam book
+  the tickets for me. 
+
+  Thanks
+
+  Have a good weekend.

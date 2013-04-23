@@ -1,0 +1,41 @@
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+<title>InstallXdebug</title>
+<meta http-equiv="Content-Type" content="text/html; charset=" />
+</head>
+<body>
+<div class="container">
+<h1 id="toc_1">Installing Xdeub</h1>
+<ul>
+<li>
+sudo aptitude install php5-xdebug
+</li>
+<li>
+configure the xdebug ini file for your preferences
+<pre>
+xdebug.var_display_max_children = 999
+xdebug.var_display_max_data = 99999
+xdebug.var_display_max_depth = 100
+</pre>
+</li>
+<li>
+create <code>/etc/php5/conf.d/php.ini</code>
+</li>
+<li>
+add <code>display_errors = On</code>
+</li>
+<li>
+<code>html_errors = On</code>
+</li>
+<li>
+restart apache
+</li>
+</ul>
+
+</div>
+</body>
+</html>

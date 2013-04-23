@@ -1,0 +1,12 @@
+= Installing Xdeub =
+* sudo aptitude install php5-xdebug
+* configure the xdebug ini file for your preferences
+    {{{
+    xdebug.var_display_max_children = 999
+    xdebug.var_display_max_data = 99999
+    xdebug.var_display_max_depth = 100
+    }}}
+* create `/etc/php5/conf.d/php.ini`
+* add `display_errors = On`
+* `html_errors = On`
+* restart apache

@@ -1,0 +1,11 @@
+
+
+=EOD=
+* implemented signup form with security questions and checking unique username.
+  waiting for check for the unique to be implemented on api to implement the
+  rest of that.
+* implemented base unit tests for sign up as well as selenium regression.
+* Core project was having some env issues with jenkins , helped danny fix the
+  issues to where we can define the environment per build for ant.
+* going to be working post fix email forwarding to send main through our
+  exchange server.

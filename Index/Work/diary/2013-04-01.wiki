@@ -1,0 +1,14 @@
+
+
+=EOD=
+* Worked on data encryption of session values to that no data is visible to user
+  in the session. this is for better security.
+* Found a few weird stuff happing on the servers and the jenkins jobs, so ran
+  tests and regression to debug the issues in the servers and help danny fix
+  some of them.
+* Discussion around mandatory fields for sign up process.
+* Discussed with stephen about the deployment process and the roll of the
+  "Deployment Manager"
+* Didnt have much of a "burn down" since encountered some un expected env issues
+  but will have much more of a burndown tomorrow.
+* I will have Sam book me a ticket to bay since i believe he has a company card.
