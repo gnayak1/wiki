@@ -1,0 +1,11 @@
+= Install Redmine =
+* configs
+root path is /var/www/redmine
+admin:admin by default
+db user is documented in config/database.yml
+db root = b34stm0d3
+but redmine uses user 'redmine'@'localhost'
+granted redmine.*
+have done absolutely nothing yet
+
+ http://ci.ccs-internal.net:8001

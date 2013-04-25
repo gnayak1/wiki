@@ -1,0 +1,7 @@
+= Install APACHE, PHP, MYSQL on osx =
+
+* follow these links
+    -  http://akrabat.com/computing/setting-up-php-mysql-on-os-x-10-8-mountain-lion/
+    - http://jason.pureconcepts.net/2012/10/install-apache-php-mysql-mac-os-x/
+* if your hosts or vhosts is messed up just copy the original from the original
+  folder back first.
