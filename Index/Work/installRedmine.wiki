@@ -1,11 +1,38 @@
 = Install Redmine =
 * configs
-root path is /var/www/redmine
-admin:admin by default
-db user is documented in config/database.yml
-db root = b34stm0d3
-but redmine uses user 'redmine'@'localhost'
-granted redmine.*
-have done absolutely nothing yet
+* root path is /var/www/redmine
+* admin:admin by default
+* db user is documented in config/database.yml
+* db root = b34stm0d3
+* but redmine uses user 'redmine'@'localhost'
+* granted redmine.*
+* have done absolutely nothing yet
 
  http://ci.ccs-internal.net:8001
+ 
+ == Redmine github hook ==
+ * https://github.com/koppen/redmine_github_hook/#readme
+ * after any plugin install go to the redmine directory /var/www/redmine and
+   run: compiles the plugin
+ `rake redmine:plugins:migrate RAILS_ENV=production`
+ * restart the server 
+    `sudo service httpd restart`
+ * http://www.redmine.org/projects/redmine/wiki/Plugins
+
+ * after you have installed the github plugin and configured it correctly for
+   the plugin to actually work you must give web permissions to the repository
+   folder
+   {{{sudo chown apache:apache /var/www/redmine/repo
+   sudo chown -R apache:apache /var/www/redmine/repo/*}}}
+
+ * You also have to give ssh access to the github hook. You can do this by
+   creating ssh keys user /var/www/.ssh and give them the correct permissions
+    - apache as user
+    - read to the folder and files
+    - copy the new public key to github for it to allow access
+ * optionally you can just copy over existing ssh keys that are already assigned
+   to github to the /var/www/.ssh folder and that should do the same. In our
+   case we already have keys for cicreativechannel user in github that accesses
+   our redmine server so we just copied the same keys to /var/www/.ssh and give
+   them `chwon apache:apache` user rights
+

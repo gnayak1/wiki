@@ -5,7 +5,7 @@
 <link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
 <title>installRedmine</title>
-<meta http-equiv="Content-Type" content="text/html; charset=" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
 <div class="container">
@@ -14,20 +14,73 @@
 <li>
 configs
 </li>
-</ul>
-<p>
+<li>
 root path is /var/www/redmine
+</li>
+<li>
 admin:admin by default
+</li>
+<li>
 db user is documented in config/database.yml
+</li>
+<li>
 db root = b34stm0d3
+</li>
+<li>
 but redmine uses user 'redmine'@'localhost'
+</li>
+<li>
 granted redmine.*
+</li>
+<li>
 have done absolutely nothing yet
-</p>
+</li>
+</ul>
 
 <p>
  <a href="http://ci.ccs-internal.net:8001">http://ci.ccs-internal.net:8001</a>
 </p>
+ 
+<h2 id="toc_1.1" class="justcenter">Redmine github hook</h2>
+<ul>
+<li>
+<a href="https://github.com/koppen/redmine_github_hook/#readme">https://github.com/koppen/redmine_github_hook/#readme</a>
+</li>
+<li>
+after any plugin install go to the redmine directory /var/www/redmine and
+   run: compiles the plugin
+ <code>rake redmine:plugins:migrate RAILS_ENV=production</code>
+</li>
+<li>
+restart the server 
+    <code>sudo service httpd restart</code>
+</li>
+<li>
+<a href="http://www.redmine.org/projects/redmine/wiki/Plugins">http://www.redmine.org/projects/redmine/wiki/Plugins</a>
+</li>
+</ul>
+
+<ul>
+<li>
+after you have installed the github plugin and configured it correctly for
+   the plugin to actually work you must give web permissions to the repository
+   folder
+<pre sudo chown apache:apache /var/www/redmine/repo>
+sudo chown -R apache:apache /var/www/redmine/repo/*}}}
+
+ * You also have to give ssh access to the github hook. You can do this by
+creating ssh keys user /var/www/.ssh and give them the correct permissions
+ - apache as user
+ - read to the folder and files
+ - copy the new public key to github for it to allow access
+ * optionally you can just copy over existing ssh keys that are already assigned
+to github to the /var/www/.ssh folder and that should do the same. In our
+case we already have keys for cicreativechannel user in github that accesses
+our redmine server so we just copied the same keys to /var/www/.ssh and give
+them `chwon apache:apache` user rights
+</li>
+</ul>
+</pre>
 
 </div>
 </body>
