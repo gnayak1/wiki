@@ -1,0 +1,78 @@
+
+#Fedora17 installed apps
+su -c 'curl http://download.opensuse.org/repositories/home:/satya164:/fedorautils/Fedora_17/home:satya164:fedorautils.repo -o /etc/yum.repos.d/fedorautils.repo && yum install fedorautils'
+su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-17.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-17.noarch.rpm'
+yum install gnome-tweak-tool
+sudo yum install gnome-tweak-tool
+sudo yum install guake.x86_64
+sudo yum install httpd
+sudo yum install mysql mysql-server
+sudo /usr/bin/mysql_secure_installation
+sudo yum install php php-mysql
+sudo yum install php-pecl-xdebug
+sudo yum install git
+sudo yum install gitg
+sudo yum install kdiff3.x86_64
+git config --global merge.tool kdiff3
+sudo yum install poedit
+sudo -c 'yum install java-*-openjdk java-*-openjdk-plugin'
+sudo yum install filezilla
+sudo service httpd restart
+cd ~/Downloads
+wget http://www.maxiberta.com.ar/repo/fedora-ubuntuone.repo
+mv fedora-ubuntuone.repo /etc/yum.repos.d/
+
+sudo su
+echo "[atlassian-hipchat]
+name=Atlassian Hipchat
+baseurl=http://downloads.hipchat.com/linux/yum
+enabled=1
+gpgcheck=1
+gpgkey=https://www.hipchat.com/keys/hipchat-linux.key
+" > /etc/yum.repos.d/atlassian-hipchat.repo
+yum install hipchat 
+
+
+#pidgin
+sudo yum insall pidgin
+
+system monitor
+yum install gkrellm
+#Installing using the graphical installer: Base System > System Tools > gkrellm
+#Menu location after installation: > Applications > System Tools > GKrellM #System Monitor
+#Command: /usr/bin/gkrellm
+
+
+#PHP
+
+sudo yum install php-gettext
+sudo yum install php-gd
+sudo yum install php-mbstring
+#http://blog.dynamichosting.biz/2011/01/10/installing-ssh2-extension-for-php-on-centos-5/
+yum install gcc php-devel php-pear libssh2 libssh2-devel
+
+
+
+#ensure that wget is installed
+yum install -y wget
+ 
+#Addition yum repo file from Dropbox 
+wget http://dl.dropbox.com/u/30876345/repo/dropbox.repo 
+mv dropbox.repo /etc/yum.repos.d
+ 
+ 
+#Install Dropbox
+yum install -y nautilus-dropbox
+ 
+echo "Important! The installation is NOT complete!"
+echo "You need to activate the dropbox program to complete the installation and configure a user account. The program is under Applications >> Internet >> Dropbox"
+echo "For Fedora 18, go to Show Applications >> Internet >> Dropbox"
+
+
+#kdesk
+sudo yum install kdesdk-kcachegrind.x86_64
+sudo yum install valgrind
+dependencies :kdesdk-kcachegrind and kdesdk-common
+
+#jed jed—A programmer’s text editor with features such as colorized highlighting of text to help syntax checking and editing of programs 
+sudo yum install jed
