@@ -1,4 +1,3 @@
-
 #Fedora17 installed apps
 su -c 'curl http://download.opensuse.org/repositories/home:/satya164:/fedorautils/Fedora_17/home:satya164:fedorautils.repo -o /etc/yum.repos.d/fedorautils.repo && yum install fedorautils'
 su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-17.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-17.noarch.rpm'
@@ -18,10 +17,12 @@ sudo yum install poedit
 sudo -c 'yum install java-*-openjdk java-*-openjdk-plugin'
 sudo yum install filezilla
 sudo service httpd restart
+#ubuntuone
 cd ~/Downloads
 wget http://www.maxiberta.com.ar/repo/fedora-ubuntuone.repo
 mv fedora-ubuntuone.repo /etc/yum.repos.d/
 
+#hipchat
 sudo su
 echo "[atlassian-hipchat]
 name=Atlassian Hipchat
