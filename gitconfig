@@ -1,0 +1,7 @@
+[user]
+	name = Shahin Mohammadkhani
+	email = skhani@creativechannel.com
+[merge]
+	tool = kdiff3
+[push]
+	default = simple
