@@ -63,7 +63,12 @@ mv dropbox.repo /etc/yum.repos.d
  
  
 #Xclip copy to clipboard
+
 sudo yum install xclip
+
+#example 
+#xclip -sel clip < ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
 
 #Install Dropbox
 yum install -y nautilus-dropbox
