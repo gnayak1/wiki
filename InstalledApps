@@ -43,7 +43,7 @@ yum install gkrellm
 #Menu location after installation: > Applications > System Tools > GKrellM #System Monitor
 #Command: /usr/bin/gkrellm
 
-N
+
 #PHP
 
 sudo yum install php-gettext
@@ -62,6 +62,9 @@ wget http://dl.dropbox.com/u/30876345/repo/dropbox.repo
 mv dropbox.repo /etc/yum.repos.d
  
  
+#Xclip copy to clipboard
+sudo yum install xclip
+
 #Install Dropbox
 yum install -y nautilus-dropbox
  
