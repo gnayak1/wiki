@@ -76,3 +76,14 @@ dependencies :kdesdk-kcachegrind and kdesdk-common
 
 #jed jed—A programmer’s text editor with features such as colorized highlighting of text to help syntax checking and editing of programs 
 sudo yum install jed
+
+#Gnote
+sudo yum install gnote
+
+#Gnome Pythos
+sudo yum install gnome-python-gnome
+
+#hamster
+cd /tmp/;
+wget http://www.lefred.be/files/hamster-time-tracker-1.03.2-1.fc18.x86_64.rpm
+sudo rpm -i hamster-time-tracker-1.03.2-1.fc18.x86_64.rpm

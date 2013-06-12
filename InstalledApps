@@ -48,6 +48,7 @@ N
 sudo yum install php-gettext
 sudo yum install php-gd
 sudo yum install php-mbstring
+sudo yum install php-xml
 #http://blog.dynamichosting.biz/2011/01/10/installing-ssh2-extension-for-php-on-centos-5/
 yum install gcc php-devel php-pear libssh2 libssh2-devel
 
