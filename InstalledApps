@@ -93,6 +93,9 @@ sudo yum install gnote
 #Gnome Pythos
 sudo yum install gnome-python-gnome
 
+#GIMP
+sudo yum install gimp
+
 #hamster
 cd /tmp/;
 wget http://www.lefred.be/files/hamster-time-tracker-1.03.2-1.fc18.x86_64.rpm
