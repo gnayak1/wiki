@@ -100,3 +100,7 @@ sudo yum install gimp
 cd /tmp/;
 wget http://www.lefred.be/files/hamster-time-tracker-1.03.2-1.fc18.x86_64.rpm
 sudo rpm -i hamster-time-tracker-1.03.2-1.fc18.x86_64.rpm
+
+#android emulator libraries http://blogs.fsfe.org/samtuke/?p=428
+yum install libstdc++.i686 glibc.i686 ncurses-libs.i686 libstdc libstdc++.i686 libzip.i686 libX11.i686 libXrandr.i686 SDL.i686
+
