@@ -1,0 +1,12 @@
+Install Parse on Fedora
+
+* yum install gcc-c++ make openssl-devel
+* wget http://nodejs.org/dist/v0.10.13/node-v0.10.13.tar.gz
+* tar zxvf node-v0.10.13.tar.gz
+* cd node-v0.10.13
+* ./configure
+* make
+* make install
+
+or using the yum package manager (f18 or later)
+ * sudo yum install npm
